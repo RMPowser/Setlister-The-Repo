@@ -2,8 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:id="@+id/parent_layout">
+                android:paddingTop="5dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp"
+                android:id="@+id/song_entry_layout">
 
     <TextView
         android:id="@+id/song_title_text"
@@ -11,27 +14,39 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="song title" />
+        android:text="song title"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/artist_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/song_title_text"
-        android:text="artist" />
+        android:text="artist"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/length_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="length" />
+        android:text="length"
+        android:textSize="18sp" />
     <TextView
         android:id="@+id/key_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/length_text"
         android:layout_alignParentRight="true"
-        android:text="key" />
+        android:text="key"
+        android:textSize="18sp" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/artist_text"
+        android:layout_marginTop="5dp"
+        android:background="?android:attr/listDivider" />
 
 </RelativeLayout>

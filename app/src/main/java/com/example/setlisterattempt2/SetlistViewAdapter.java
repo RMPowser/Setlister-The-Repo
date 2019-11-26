@@ -1,0 +1,146 @@
+package com.example.setlisterattempt2;
+
+import android.content.Context;
+import android.text.Layout;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private static final String TAG = "SetlistViewAdapter";
+    private static int TYPE_SONG = 1;
+    private static int TYPE_SET = 2;
+    private static int TYPE_HEADER = 3;
+    
+    private Setlist mSetlist;
+    private Context mContext;
+
+    public SetlistViewAdapter(Context Context, Setlist setlist ) {
+        Log.i(TAG, "SetlistViewAdapter: constructor called.");
+        mContext = Context;
+        mSetlist = setlist;
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.i(TAG, "onCreateViewHolder: called.");
+        
+        View view;
+        if(viewType == TYPE_SET ) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.layout_set, parent, false);
+            return new SetViewHolder(view);
+        }
+        else if(viewType == TYPE_SONG) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.layout_song_entry, parent, false);
+            return new SongEntryViewHolder(view);
+        }
+        else if(viewType == TYPE_HEADER) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.layout_setlist_header, parent, false);
+            return new HeaderViewHolder(view);
+        }
+        return null;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder: called.");
+        if (getItemViewType(position) == TYPE_SET){
+            ((SetViewHolder) holder).setSetDetails((Set) mSetlist.getSongs().get(position));
+        }
+        else if (getItemViewType(position) == TYPE_SONG){
+            ((SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) mSetlist.getSongs().get(position));
+        }
+        else if (getItemViewType(position) == TYPE_HEADER){
+            ((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) mSetlist.getSongs().get(position));
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+    	return mSetlist.getSongs().size();
+    }
+    @Override
+    public int getItemViewType(int position) {
+        if (mSetlist.getSongs().get(position) instanceof Set) {
+            return TYPE_SET;
+            
+        }
+        else if (mSetlist.getSongs().get(position) instanceof SongEntry) {
+            return TYPE_SONG;
+        }
+        else if (mSetlist.getSongs().get(position) instanceof SetlistHeader){
+            return TYPE_HEADER;
+        }
+        else return -1;
+    }
+    
+    
+    
+    
+    public class SetViewHolder extends RecyclerView.ViewHolder{
+        private static final String TAG = "SetViewHolder";
+        TextView setNumber;
+        
+        public SetViewHolder(@NonNull View itemView) {
+            super(itemView);
+            Log.i(TAG, "SetViewHolder: constructor called.");
+            setNumber = itemView.findViewById(R.id.set_number_text);
+        }
+        
+        private void setSetDetails(Set set){
+            String text = "Set " + (set.getSetIndex());
+            setNumber.setText(text);
+        }
+    }
+    
+    
+    class SongEntryViewHolder extends RecyclerView.ViewHolder{
+        private static final String TAG = "SongEntryViewHolder";
+        TextView title;
+        TextView artist;
+        TextView length;
+        TextView keySignature;
+        
+        public SongEntryViewHolder(@NonNull View itemView) {
+            super(itemView);
+            Log.i(TAG, "SongEntryViewHolder: constructor called.");
+            title = itemView.findViewById(R.id.song_title_text);
+            artist = itemView.findViewById(R.id.artist_text);
+            length = itemView.findViewById(R.id.length_text);
+            keySignature = itemView.findViewById(R.id.key_text);
+        }
+        
+        private void SetSongEntryDetails(@NonNull SongEntry songEntry){
+            title.setText(songEntry.getTitle());
+            artist.setText(songEntry.getArtist());
+            length.setText(songEntry.getLength());
+            keySignature.setText(songEntry.getKeySignature());
+        }
+    }
+    
+    class HeaderViewHolder extends RecyclerView.ViewHolder{
+        private static final String TAG = "HeaderViewHolder";
+        TextView headerTitle;
+        TextView headerDate;
+        TextView headerTime;
+    
+        public HeaderViewHolder(@NonNull View itemView) {
+            super(itemView);
+           headerTitle = itemView.findViewById(R.id.setlistTitleText);
+           headerDate = itemView.findViewById(R.id.setlistDateTextView);
+           headerTime = itemView.findViewById(R.id.setlistTimeTextView);
+        }
+        
+        private void SetHeaderDetails(@NonNull SetlistHeader header){
+            headerTitle.setText(header.getTitleOrLocation());
+            headerDate.setText(header.getDate());
+            headerTime.setText(header.getTime());
+        }
+    }
+}

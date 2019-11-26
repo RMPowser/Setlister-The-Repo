@@ -1,52 +1,87 @@
 package com.example.setlisterattempt2;
 
-import java.util.List;
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
 
 public class Setlist {
-    private String titleOrLocation = "Setlist Title/Location";
-    private String date = "Jan 26, 1995";
-    private String time = "8:30AM";
-    private List<Set> sets;
 
-    public void Setlist(String title, String date, String time){
-        titleOrLocation = title;
-        this.date = date;
-        this.time = time;
+    // initializing default values for constructor
+    private ArrayList<SetlistEntity> songs = new ArrayList<>();
+    private int CountOfSets = 0; // variable counts how many sets are in the setlist
+
+    public Setlist(String title, String date, String time){
+        AddHeader(title, date, time);
+    }
+    
+    public ArrayList<SetlistEntity> getSongs() {
+        return songs;
+    }
+    
+    public int getCountOfSets() {
+        return CountOfSets;
+    }
+    
+    public void AddSong(String title, String artist, String length, String keySignature){
+        SongEntry song = new SongEntry(title, artist, length, keySignature);
+        songs.add(song);
+    }
+    
+    public void InsertSong(int index, String title, String artist, String length,
+                            String keySignature){
+        SongEntry song = new SongEntry(title, artist, length, keySignature);
+        songs.add(index, song);
     }
 
-    public void AddNewSet(Set newSet){
-        sets.add(newSet);
+    public void AddSet(){
+        Set set = new Set();
+        CountOfSets++;
+        set.setSetIndex(CountOfSets);
+        songs.add(set);
     }
-
-    public void RemoveSetAtIndex(int index){
-        sets.remove(index);
+    
+    public void InsertSet(int index){
+        Set set = new Set();
+        CountOfSets++;
+        set.setSetIndex(CountOfSets);
+        songs.add(index, set);
     }
-
-    public String getTitleOrLocation() {
-        return titleOrLocation;
+    
+    public void AddHeader(String titleOrLocation, String date, String time){
+        if (songs.size() != 0){
+            if (songs.get(0) instanceof SetlistHeader){
+                ((SetlistHeader) songs.get(0)).setTitleOrLocation(titleOrLocation);
+                ((SetlistHeader) songs.get(0)).setDate(date);
+                ((SetlistHeader) songs.get(0)).setTime(time);
+            }
+            else {
+                SetlistHeader header = new SetlistHeader(titleOrLocation, date, time);
+                songs.add(0, header);
+            }
+        }
+        else {
+            SetlistHeader header = new SetlistHeader(titleOrLocation, date, time);
+            songs.add(header);
+        }
     }
+    
+    public void RemoveAt(int index){
+        if (songs.get(index) instanceof Set) {
+            CountOfSets--;
+            songs.remove(index); // remove the set itself
 
-    public void setTitleOrLocation(String titleOrLocation) {
-        this.titleOrLocation = titleOrLocation;
+            while (songs.get(index) instanceof SongEntry) {
+                // and then remove everything after it up until the next set
+                songs.remove(index);
+            }
+        }
+        else if (songs.get(index) instanceof SongEntry || songs.get(index) instanceof SetlistHeader ){
+            songs.remove(index);
+        }
     }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
+    
     public void Clear(){
-        sets.clear();
+        CountOfSets = 0;
+        songs.clear();
     }
 }

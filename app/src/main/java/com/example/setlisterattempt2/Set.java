@@ -1,16 +1,18 @@
 package com.example.setlisterattempt2;
 
-import java.util.List;
 
+import androidx.annotation.NonNull;
 
-public class Set {
-    private List<SongEntry> songEntries;
+import java.util.ArrayList;
 
-    public void AddNewSongEntry(SongEntry song){
-        songEntries.add(song);
-    }
-
-    public void RemoveSongEntryAtIndex(int index){
-        songEntries.remove(index);
-    }
+public class Set extends SetlistEntity{
+	int setIndex = -1;
+	
+	public int getSetIndex() {
+		return setIndex;
+	}
+	
+	public void setSetIndex(int setIndex) {
+		this.setIndex = setIndex;
+	}
 }

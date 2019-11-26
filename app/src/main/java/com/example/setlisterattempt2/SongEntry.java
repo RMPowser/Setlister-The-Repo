@@ -1,16 +1,21 @@
 package com.example.setlisterattempt2;
 
-public class SongEntry {
-    String title = "New Song";
-    String artist = "Artist";
-    int lengthInSeconds = 0;
-    String keySignature = "C#";
+public class SongEntry extends SetlistEntity{
 
-    public void SongEntry(String title, String artist, int lengthInSeconds, String keySignature) {
-        this.title = title;
-        this.artist = artist;
-        this.lengthInSeconds = lengthInSeconds;
-        this.keySignature = keySignature;
+    // initializing default values for constructor
+    private String title = "New Song";
+    private String artist = "Artist";
+    private String length = "3:45";
+    private String keySignature = "C#";
+    boolean isSet = false;
+
+    public SongEntry(String title, String artist, String length, String keySignature) {
+    	// java doesn't support default parameters like c++ does, so I have to do this instead...
+		// makes me sad :C
+        if (title != null) { this.title = title; }
+        if (artist != null) { this.artist = artist; }
+		if (length != null) { this.length = length; }
+        if (keySignature != null) { this.keySignature = keySignature; }
     }
 
     public String getTitle() {
@@ -29,12 +34,12 @@ public class SongEntry {
         this.artist = artist;
     }
 
-    public int getLengthInSeconds() {
-        return lengthInSeconds;
+    public String getLength() {
+        return length;
     }
 
-    public void setLengthInSeconds(int lengthInSeconds) {
-        this.lengthInSeconds = lengthInSeconds;
+    public void setLengthInSeconds(String length) {
+        this.length = length;
     }
 
     public String getKeySignature() {
