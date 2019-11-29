@@ -1,7 +1,6 @@
 package com.example.setlisterattempt2;
 
 import android.content.Context;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static int TYPE_SONG = 1;
     private static int TYPE_SET = 2;
     private static int TYPE_HEADER = 3;
+    private static int TYPE_ADD_SET_BUTTON = 4;
     
     private Setlist mSetlist;
     private Context mContext;
@@ -44,6 +44,10 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             view = LayoutInflater.from(mContext).inflate(R.layout.layout_setlist_header, parent, false);
             return new HeaderViewHolder(view);
         }
+        else if(viewType == TYPE_ADD_SET_BUTTON) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.layout_add_set_button, parent, false);
+            return new AddSetButtonViewHolder(view);
+        }
         return null;
     }
 
@@ -59,23 +63,29 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         else if (getItemViewType(position) == TYPE_HEADER){
             ((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) mSetlist.getSongs().get(position));
         }
+        else if (getItemViewType(position) == TYPE_ADD_SET_BUTTON){
+            // do nothing for now...
+        }
     }
 
     @Override
     public int getItemCount() {
     	return mSetlist.getSongs().size();
     }
+
     @Override
     public int getItemViewType(int position) {
         if (mSetlist.getSongs().get(position) instanceof Set) {
             return TYPE_SET;
-            
         }
         else if (mSetlist.getSongs().get(position) instanceof SongEntry) {
             return TYPE_SONG;
         }
         else if (mSetlist.getSongs().get(position) instanceof SetlistHeader){
             return TYPE_HEADER;
+        }
+        else if (mSetlist.getSongs().get(position) instanceof AddSetButton){
+            return TYPE_ADD_SET_BUTTON;
         }
         else return -1;
     }
@@ -141,6 +151,15 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             headerTitle.setText(header.getTitleOrLocation());
             headerDate.setText(header.getDate());
             headerTime.setText(header.getTime());
+        }
+    }
+
+    class AddSetButtonViewHolder extends RecyclerView.ViewHolder {
+        TextView addSetButton;
+
+        public AddSetButtonViewHolder(@NonNull View itemView) {
+            super(itemView);
+            addSetButton = itemView.findViewById(R.id.add_set_button_view);
         }
     }
 }

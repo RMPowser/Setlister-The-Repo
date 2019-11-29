@@ -12,25 +12,23 @@ public class Setlist {
 
     public Setlist(String title, String date, String time){
         AddHeader(title, date, time);
+        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
     }
     
     public ArrayList<SetlistEntity> getSongs() {
         return songs;
     }
     
-    public int getCountOfSets() {
-        return CountOfSets;
-    }
-    
     public void AddSong(String title, String artist, String length, String keySignature){
         SongEntry song = new SongEntry(title, artist, length, keySignature);
         songs.add(song);
+        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
     }
     
-    public void InsertSong(int index, String title, String artist, String length,
-                            String keySignature){
+    public void InsertSong(int index, String title, String artist, String length, String keySignature){
         SongEntry song = new SongEntry(title, artist, length, keySignature);
         songs.add(index, song);
+        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
     }
 
     public void AddSet(){
@@ -38,6 +36,7 @@ public class Setlist {
         CountOfSets++;
         set.setSetIndex(CountOfSets);
         songs.add(set);
+        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
     }
     
     public void InsertSet(int index){
@@ -45,6 +44,7 @@ public class Setlist {
         CountOfSets++;
         set.setSetIndex(CountOfSets);
         songs.add(index, set);
+        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
     }
     
     public void AddHeader(String titleOrLocation, String date, String time){
@@ -83,5 +83,17 @@ public class Setlist {
     public void Clear(){
         CountOfSets = 0;
         songs.clear();
+        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
+    }
+
+    private void MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd(){
+        for (int i = 0; i < songs.size(); i++) {
+            if (songs.get(i) instanceof AddSetButton){
+                songs.remove(i);
+                i--;
+            }
+        }
+        AddSetButton button = new AddSetButton();
+        songs.add(button);
     }
 }
