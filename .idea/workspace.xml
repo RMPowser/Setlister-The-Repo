@@ -25,7 +25,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8beff08c-4e38-47b2-8e91-e5c848d8ea54" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/setlisterattempt2/SetlistViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/setlisterattempt2/SetlistViewAdapter.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -97,10 +96,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/setlisterattempt2/SetlistViewAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="73" column="17" lean-forward="true" selection-start-line="73" selection-start-column="17" selection-end-line="73" selection-end-column="17" />
+            <state relative-caret-position="276">
+              <caret line="62" column="110" lean-forward="true" selection-start-line="62" selection-start-column="110" selection-end-line="62" selection-end-column="110" />
               <folding>
-                <element signature="e#2725#2878#0" expanded="true" />
+                <element signature="e#2685#2908#0" expanded="true" />
+                <element signature="e#2907#2908#0" expanded="true" />
+                <element signature="e#2981#3203#0" expanded="true" />
+                <element signature="e#3202#3203#0" expanded="true" />
+                <element signature="e#3277#3500#0" expanded="true" />
+                <element signature="e#3499#3500#0" expanded="true" />
+                <element signature="e#3652#3907#0" expanded="true" />
+                <element signature="e#3906#3907#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -361,7 +367,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17963752" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.17963752" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
@@ -378,7 +384,7 @@
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5010661" side_tool="true" weight="0.20693392" />
       <window_info anchor="bottom" id="Run" order="7" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="8" />
-      <window_info anchor="bottom" id="Build" order="9" sideWeight="0.4989339" visible="true" weight="0.20693392" />
+      <window_info active="true" anchor="bottom" id="Build" order="9" sideWeight="0.4989339" visible="true" weight="0.20693392" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Theme Preview" order="2" />
@@ -563,10 +569,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/setlisterattempt2/SetlistViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="73" column="17" lean-forward="true" selection-start-line="73" selection-start-column="17" selection-end-line="73" selection-end-column="17" />
+        <state relative-caret-position="276">
+          <caret line="62" column="110" lean-forward="true" selection-start-line="62" selection-start-column="110" selection-end-line="62" selection-end-column="110" />
           <folding>
-            <element signature="e#2725#2878#0" expanded="true" />
+            <element signature="e#2685#2908#0" expanded="true" />
+            <element signature="e#2907#2908#0" expanded="true" />
+            <element signature="e#2981#3203#0" expanded="true" />
+            <element signature="e#3202#3203#0" expanded="true" />
+            <element signature="e#3277#3500#0" expanded="true" />
+            <element signature="e#3499#3500#0" expanded="true" />
+            <element signature="e#3652#3907#0" expanded="true" />
+            <element signature="e#3906#3907#0" expanded="true" />
           </folding>
         </state>
       </provider>

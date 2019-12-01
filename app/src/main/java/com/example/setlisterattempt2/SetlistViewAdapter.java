@@ -64,6 +64,24 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         else if (getItemViewType(position) == TYPE_HEADER){
             ((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) mSetlist.getSongs().get(position));
+            ((HeaderViewHolder) holder).headerTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Selected Title", Toast.LENGTH_SHORT).show();
+                }
+            });
+            ((HeaderViewHolder) holder).headerDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Selected Date", Toast.LENGTH_SHORT).show();
+                }
+            });
+            ((HeaderViewHolder) holder).headerTime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Selected Time", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
         else if (getItemViewType(position) == TYPE_ADD_SET_BUTTON){
             ((AddSetButtonViewHolder) holder).mView.setOnClickListener(new View.OnClickListener() {
