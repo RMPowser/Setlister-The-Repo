@@ -58,6 +58,13 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         
         if (getItemViewType(position) == TYPE_SET){
             ((SetViewHolder) holder).setSetDetails((Set) mSetlist.getSongs().get(position));
+            ((SetViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(mContext, "long clicked set. activate remove mode", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
         }
         else if (getItemViewType(position) == TYPE_SONG){
             ((SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) mSetlist.getSongs().get(position));
@@ -65,6 +72,14 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(mContext, "Open song editing menu here", Toast.LENGTH_SHORT).show();
+                }
+            });
+            ((SongEntryViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(mContext, "long clicked song entry. activate remove mode",
+                            Toast.LENGTH_SHORT).show();
+                    return false;
                 }
             });
         }
