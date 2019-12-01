@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +55,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: called.");
+        
         if (getItemViewType(position) == TYPE_SET){
             ((SetViewHolder) holder).setSetDetails((Set) mSetlist.getSongs().get(position));
         }
@@ -64,7 +66,13 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) mSetlist.getSongs().get(position));
         }
         else if (getItemViewType(position) == TYPE_ADD_SET_BUTTON){
-            // do nothing for now...
+            ((AddSetButtonViewHolder) holder).mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext,
+                            "Selected \"+ set\"", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -156,10 +164,12 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class AddSetButtonViewHolder extends RecyclerView.ViewHolder {
         TextView addSetButton;
+        public View mView;
 
         public AddSetButtonViewHolder(@NonNull View itemView) {
             super(itemView);
             addSetButton = itemView.findViewById(R.id.add_set_button_view);
+            mView = itemView;
         }
     }
 }
