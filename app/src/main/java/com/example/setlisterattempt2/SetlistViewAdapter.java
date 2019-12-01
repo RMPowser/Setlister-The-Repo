@@ -61,7 +61,12 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         else if (getItemViewType(position) == TYPE_SONG){
             ((SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) mSetlist.getSongs().get(position));
-            
+            ((SongEntryViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Open song editing menu here", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
         else if (getItemViewType(position) == TYPE_HEADER){
             ((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) mSetlist.getSongs().get(position));
