@@ -61,6 +61,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
         else if (getItemViewType(position) == TYPE_SONG){
             ((SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) mSetlist.getSongs().get(position));
+            
         }
         else if (getItemViewType(position) == TYPE_HEADER){
             ((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) mSetlist.getSongs().get(position));
@@ -84,7 +85,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             });
         }
         else if (getItemViewType(position) == TYPE_ADD_SET_BUTTON){
-            ((AddSetButtonViewHolder) holder).mView.setOnClickListener(new View.OnClickListener() {
+            ((AddSetButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(mContext,
@@ -182,12 +183,10 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class AddSetButtonViewHolder extends RecyclerView.ViewHolder {
         TextView addSetButton;
-        public View mView;
 
         public AddSetButtonViewHolder(@NonNull View itemView) {
             super(itemView);
             addSetButton = itemView.findViewById(R.id.add_set_button_view);
-            mView = itemView;
         }
     }
 }
