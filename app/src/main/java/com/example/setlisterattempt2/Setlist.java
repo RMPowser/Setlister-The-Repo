@@ -1,6 +1,6 @@
 package com.example.setlisterattempt2;
 
-import androidx.annotation.NonNull;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class Setlist {
 
     public Setlist(String title, String date, String time){
         AddHeader(title, date, time);
-        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
+        RedistributeButtons();
     }
     
     public ArrayList<SetlistEntity> getSongs() {
@@ -22,13 +22,13 @@ public class Setlist {
     public void AddSong(String title, String artist, String length, String keySignature){
         SongEntry song = new SongEntry(title, artist, length, keySignature);
         songs.add(song);
-        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
+        RedistributeButtons();
     }
     
     public void InsertSong(int index, String title, String artist, String length, String keySignature){
         SongEntry song = new SongEntry(title, artist, length, keySignature);
         songs.add(index, song);
-        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
+        RedistributeButtons();
     }
 
     public void AddSet(){
@@ -36,7 +36,7 @@ public class Setlist {
         CountOfSets++;
         set.setSetIndex(CountOfSets);
         songs.add(set);
-        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
+        RedistributeButtons();
     }
     
     public void InsertSet(int index){
@@ -44,7 +44,7 @@ public class Setlist {
         CountOfSets++;
         set.setSetIndex(CountOfSets);
         songs.add(index, set);
-        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
+        RedistributeButtons();
     }
     
     public void AddHeader(String titleOrLocation, String date, String time){
@@ -83,17 +83,45 @@ public class Setlist {
     public void Clear(){
         CountOfSets = 0;
         songs.clear();
-        MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd();
+        MakeSureThereIsOnlyOneAddSetButtonAndItIsAtTheEnd();
     }
-
-    private void MakeSureThereIsOnlyOneAddSetButtonAndItsAtTheEnd(){
+    
+    private void RedistributeButtons(){ // makes sure these two functions are always called in
+        // this order
+        MakeSureThereIsOnlyOneAddSetButtonAndItIsAtTheEnd();
+        MakeSureThereIsOneAddSongEntryButtonPerSet();
+    }
+    
+    private void MakeSureThereIsOnlyOneAddSetButtonAndItIsAtTheEnd(){ // not to be used outside
+        // of RedistributeButtons()
         for (int i = 0; i < songs.size(); i++) {
-            if (songs.get(i) instanceof AddSetButton){
+            if (songs.get(i) instanceof ButtonAddSet){
                 songs.remove(i);
                 i--;
             }
         }
-        AddSetButton button = new AddSetButton();
+        ButtonAddSet button = new ButtonAddSet();
         songs.add(button);
+    }
+    
+    private void MakeSureThereIsOneAddSongEntryButtonPerSet(){ // not to be used outside
+        // of RedistrubuteButtons()
+        // first get rid of all the AddSongEntry buttons
+        for (int i = 0; i < songs.size(); i++) {
+            if (songs.get(i) instanceof ButtonAddSongEntry){
+                songs.remove(i);
+                i--;
+            }
+        }
+        // then, add them back in at the right spots
+        for (int i = 0; i < songs.size(); i++) {
+            if ((songs.get(i) instanceof Set || songs.get(i) instanceof ButtonAddSet) && i != 0){
+                if (!(songs.get(i-1) instanceof ButtonAddSongEntry)){
+                    ButtonAddSongEntry button = new ButtonAddSongEntry();
+                    songs.add(i, button);
+                    i++;
+                }
+            }
+        }
     }
 }

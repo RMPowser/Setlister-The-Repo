@@ -1,10 +1,5 @@
 package com.example.setlisterattempt2;
 
-
-import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
-
 public class Set extends SetlistEntity{
 	int setIndex = -1;
 	

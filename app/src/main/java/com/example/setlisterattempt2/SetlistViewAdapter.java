@@ -17,10 +17,11 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static int TYPE_SET = 2;
     private static int TYPE_HEADER = 3;
     private static int TYPE_ADD_SET_BUTTON = 4;
+    private static int TYPE_ADD_SONG_ENTRY_BUTTON = 5;
     
     private Setlist mSetlist;
     private Context mContext;
-
+    
     public SetlistViewAdapter(Context Context, Setlist setlist ) {
         Log.i(TAG, "SetlistViewAdapter: constructor called.");
         mContext = Context;
@@ -48,6 +49,11 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         else if(viewType == TYPE_ADD_SET_BUTTON) {
             view = LayoutInflater.from(mContext).inflate(R.layout.layout_add_set_button, parent, false);
             return new AddSetButtonViewHolder(view);
+        }
+        else if(viewType == TYPE_ADD_SONG_ENTRY_BUTTON) {
+            view = LayoutInflater.from(mContext).inflate(R.layout.layout_add_song_entry_button,
+                    parent, false);
+            return new AddSongEntryButtonViewHolder(view);
         }
         return null;
     }
@@ -113,6 +119,14 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             });
         }
+        else if (getItemViewType(position) == TYPE_ADD_SONG_ENTRY_BUTTON) {
+            ((AddSongEntryButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Selected \"+ song\". activate new song activity here", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     @Override
@@ -131,8 +145,11 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         else if (mSetlist.getSongs().get(position) instanceof SetlistHeader){
             return TYPE_HEADER;
         }
-        else if (mSetlist.getSongs().get(position) instanceof AddSetButton){
+        else if (mSetlist.getSongs().get(position) instanceof ButtonAddSet){
             return TYPE_ADD_SET_BUTTON;
+        }
+        else if (mSetlist.getSongs().get(position) instanceof ButtonAddSongEntry) {
+            return TYPE_ADD_SONG_ENTRY_BUTTON;
         }
         else return -1;
     }
@@ -140,7 +157,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     
     
     
-    public class SetViewHolder extends RecyclerView.ViewHolder{
+    private class SetViewHolder extends RecyclerView.ViewHolder{
         private static final String TAG = "SetViewHolder";
         TextView setNumber;
         
@@ -156,8 +173,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
     
-    
-    class SongEntryViewHolder extends RecyclerView.ViewHolder{
+    private class SongEntryViewHolder extends RecyclerView.ViewHolder{
         private static final String TAG = "SongEntryViewHolder";
         TextView title;
         TextView artist;
@@ -181,8 +197,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
     
-    class HeaderViewHolder extends RecyclerView.ViewHolder{
-        private static final String TAG = "HeaderViewHolder";
+    private class HeaderViewHolder extends RecyclerView.ViewHolder{
         TextView headerTitle;
         TextView headerDate;
         TextView headerTime;
@@ -200,13 +215,22 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             headerTime.setText(header.getTime());
         }
     }
-
-    class AddSetButtonViewHolder extends RecyclerView.ViewHolder {
+    
+    private class AddSetButtonViewHolder extends RecyclerView.ViewHolder {
         TextView addSetButton;
 
         public AddSetButtonViewHolder(@NonNull View itemView) {
             super(itemView);
             addSetButton = itemView.findViewById(R.id.add_set_button_view);
+        }
+    }
+    
+    private class AddSongEntryButtonViewHolder extends RecyclerView.ViewHolder {
+        TextView addSongEntryButton;
+        
+        public AddSongEntryButtonViewHolder(@NonNull View itemView) {
+            super(itemView);
+            addSongEntryButton = itemView.findViewById(R.id.add_song_entry_button_view);
         }
     }
 }
