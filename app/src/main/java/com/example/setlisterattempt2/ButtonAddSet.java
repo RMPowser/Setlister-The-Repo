@@ -6,6 +6,11 @@ import android.os.Parcelable;
 // this class exists as a placeholder for the ViewHolder to see
 public class ButtonAddSet extends SetlistEntity implements Parcelable {
 	
+	
+	
+	
+	
+	// parcelable functions below this point
 	@Override
 	public int describeContents() {
 		return 0;

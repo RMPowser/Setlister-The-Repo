@@ -39,6 +39,10 @@ public class SetlistHeader extends SetlistEntity implements Parcelable {
 	}
 	
 	
+	
+	
+	
+	// parcelable functions below this point
 	@Override
 	public int describeContents() {
 		return 0;

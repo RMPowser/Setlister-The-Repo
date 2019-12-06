@@ -20,12 +20,16 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	private static int TYPE_ADD_SONG_ENTRY_BUTTON = 5;
 	
 	private Setlist mSetlist;
-	private Context mContext;
+	private final Context mContext;
 	
 	public SetlistViewAdapter(Context Context, Setlist setlist) {
 		Log.i(TAG, "SetlistViewAdapter: constructor called.");
 		mContext = Context;
 		mSetlist = setlist;
+	}
+	
+	public void Refresh() {
+		notifyDataSetChanged();
 	}
 	
 	@NonNull
@@ -57,9 +61,10 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	@Override
 	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 		Log.d(TAG, "onBindViewHolder: called.");
+		final int index = position;
 		
-		if (getItemViewType(position) == TYPE_SET) {
-			((SetViewHolder) holder).setSetDetails((Set) mSetlist.getSongs().get(position));
+		if (getItemViewType(index) == TYPE_SET) {
+			((SetViewHolder) holder).setSetDetails((Set) mSetlist.getSongs().get(index));
 			((SetViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
@@ -67,8 +72,8 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 					return false;
 				}
 			});
-		} else if (getItemViewType(position) == TYPE_SONG) {
-			((SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) mSetlist.getSongs().get(position));
+		} else if (getItemViewType(index) == TYPE_SONG) {
+			((SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) mSetlist.getSongs().get(index));
 			((SongEntryViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -83,39 +88,30 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 					return false;
 				}
 			});
-		} else if (getItemViewType(position) == TYPE_HEADER) {
-			((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) mSetlist.getSongs().get(position));
-			((HeaderViewHolder) holder).headerTitle.setOnClickListener(new View.OnClickListener() {
+		} else if (getItemViewType(index) == TYPE_HEADER) {
+			((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) mSetlist.getSongs().get(index));
+			((HeaderViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mContext, "Selected Title", Toast.LENGTH_SHORT).show();
+					String title = ((SetlistHeader) mSetlist.getSongs().get(0)).getTitleOrLocation();
+					String date = ((SetlistHeader) mSetlist.getSongs().get(0)).getDate();
+					String time = ((SetlistHeader) mSetlist.getSongs().get(0)).getTime();
+					((SetlistViewActivity) mContext).OpenHeaderEditDialog(title, date, time);
 				}
 			});
-			((HeaderViewHolder) holder).headerDate.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(mContext, "Selected Date", Toast.LENGTH_SHORT).show();
-				}
-			});
-			((HeaderViewHolder) holder).headerTime.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(mContext, "Selected Time", Toast.LENGTH_SHORT).show();
-				}
-			});
-		} else if (getItemViewType(position) == TYPE_ADD_SET_BUTTON) {
+		} else if (getItemViewType(index) == TYPE_ADD_SET_BUTTON) {
 			((AddSetButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					mSetlist.AddSet();
-					notifyDataSetChanged();
+					Refresh();
 				}
 			});
-		} else if (getItemViewType(position) == TYPE_ADD_SONG_ENTRY_BUTTON) {
+		} else if (getItemViewType(index) == TYPE_ADD_SONG_ENTRY_BUTTON) {
 			((AddSongEntryButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mContext, "Selected \"+ song\". activate new song activity here", Toast.LENGTH_SHORT).show();
+					((SetlistViewActivity) mContext).OpenSongDataEntryDialog(index);
 				}
 			});
 		}
