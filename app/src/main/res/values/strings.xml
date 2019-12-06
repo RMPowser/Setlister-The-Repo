@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Setlister</string>
-    <string name="textButtonLoadSetlist">Load Setlist</string>
     <string name="textButtonNewSetlist">New Setlist</string>
+    <string name="textButtonLoadSetlist">Load Setlist</string>
+    <string name="textButtonSaveThisSetlist">Save This Setlist</string>
     <string name="textButtonManageSetlist">Manage Setlists</string>
 </resources>

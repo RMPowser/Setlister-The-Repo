@@ -38,7 +38,7 @@ public class SongEntry extends SetlistEntity{
         return length;
     }
 
-    public void setLengthInSeconds(String length) {
+    public void setLength(String length) {
         this.length = length;
     }
 

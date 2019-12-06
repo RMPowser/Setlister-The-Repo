@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/nav_new_setlist"
+            android:title="@string/textButtonNewSetlist" />
+        <item
+            android:id="@+id/nav_load_setlist"
+            android:title="@string/textButtonLoadSetlist" />
+        <item
+            android:id="@+id/nav_save_this_setlist"
+            android:title="@string/textButtonSaveThisSetlist" />
+        <item
+            android:id="@+id/nav_manage_setlists"
+            android:title="@string/textButtonManageSetlist" />
+    </group>
+
+</menu>
