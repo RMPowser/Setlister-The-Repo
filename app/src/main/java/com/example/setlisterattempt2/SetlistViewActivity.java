@@ -17,8 +17,8 @@ import com.google.android.material.navigation.NavigationView;
 
 public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private static final String TAG = "SetlistViewActivity";
-	private DrawerLayout navDrawer;
 	
+	private DrawerLayout navDrawer;
 	
 	Setlist mSetlist = new Setlist("this is a setlist", "jan 26th", "8:53AM");
 	
@@ -33,7 +33,7 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		navigationView.setNavigationItemSelectedListener(this);
 		
 		
-		initTestSetlist();
+		//initTestSetlist();
 		initRecyclerView();
 	}
 	
@@ -79,6 +79,8 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 	}
 	
+	
+	// handles back button when navigation drawer is open
 	@Override
 	public void onBackPressed() {
 		if (navDrawer.isDrawerOpen(GravityCompat.START)) {

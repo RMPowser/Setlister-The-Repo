@@ -8,9 +8,11 @@ public class Setlist {
 	
 	// initializing default values for constructor
 	private ArrayList<SetlistEntity> songs = new ArrayList<>();
-	private int CountOfSets = 0; // variable counts how many sets are in the setlist
+	private int CountOfSets = 0; // variable counts how many sets are in the setlist. used to
+	// determine the number of a new set
 	
 	public Setlist(String title, String date, String time) {
+		// all setlists start with a default header
 		AddHeader(title, date, time);
 		RedistributeButtons();
 	}
@@ -113,7 +115,7 @@ public class Setlist {
 		// then, add them back in at the right spots
 		for (int i = 0; i < songs.size(); i++) {
 			if ((songs.get(i) instanceof Set || songs.get(i) instanceof ButtonAddSet) && i != 0) {
-				if (!(songs.get(i - 1) instanceof ButtonAddSongEntry)) {
+				if (!(songs.get(i - 1) instanceof ButtonAddSongEntry) && !(songs.get(i - 1) instanceof SetlistHeader)) {
 					ButtonAddSongEntry button = new ButtonAddSongEntry();
 					songs.add(i, button);
 					i++;

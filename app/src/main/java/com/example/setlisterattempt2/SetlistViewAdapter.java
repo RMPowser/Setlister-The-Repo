@@ -107,8 +107,8 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			((AddSetButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mContext,
-							"Selected \"+ set\"", Toast.LENGTH_SHORT).show();
+					mSetlist.AddSet();
+					notifyDataSetChanged();
 				}
 			});
 		} else if (getItemViewType(position) == TYPE_ADD_SONG_ENTRY_BUTTON) {
