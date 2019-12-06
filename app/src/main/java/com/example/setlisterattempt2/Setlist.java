@@ -1,10 +1,11 @@
 package com.example.setlisterattempt2;
 
-import android.widget.Button;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 
-public class Setlist {
+public class Setlist implements Parcelable {
 	
 	// initializing default values for constructor
 	private ArrayList<SetlistEntity> songs = new ArrayList<>();
@@ -104,7 +105,7 @@ public class Setlist {
 	}
 	
 	private void MakeSureThereIsOneAddSongEntryButtonPerSet() { // not to be used outside
-		// of RedistrubuteButtons()
+		// of RedistributeButtons()
 		// first get rid of all the AddSongEntry buttons
 		for (int i = 0; i < songs.size(); i++) {
 			if (songs.get(i) instanceof ButtonAddSongEntry) {
@@ -123,4 +124,33 @@ public class Setlist {
 			}
 		}
 	}
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeList(this.songs);
+		dest.writeInt(this.CountOfSets);
+	}
+	
+	protected Setlist(Parcel in) {
+		this.songs = new ArrayList<SetlistEntity>();
+		in.readList(this.songs, SetlistEntity.class.getClassLoader());
+		this.CountOfSets = in.readInt();
+	}
+	
+	public static final Parcelable.Creator<Setlist> CREATOR = new Parcelable.Creator<Setlist>() {
+		@Override
+		public Setlist createFromParcel(Parcel source) {
+			return new Setlist(source);
+		}
+		
+		@Override
+		public Setlist[] newArray(int size) {
+			return new Setlist[size];
+		}
+	};
 }

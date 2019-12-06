@@ -1,6 +1,9 @@
 package com.example.setlisterattempt2;
 
-public class SetlistHeader extends SetlistEntity {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class SetlistHeader extends SetlistEntity implements Parcelable {
 	private String titleOrLocation;
 	private String date;
 	private String time;
@@ -34,4 +37,35 @@ public class SetlistHeader extends SetlistEntity {
 	public void setTime(String time) {
 		this.time = time;
 	}
+	
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(this.titleOrLocation);
+		dest.writeString(this.date);
+		dest.writeString(this.time);
+	}
+	
+	protected SetlistHeader(Parcel in) {
+		this.titleOrLocation = in.readString();
+		this.date = in.readString();
+		this.time = in.readString();
+	}
+	
+	public static final Parcelable.Creator<SetlistHeader> CREATOR = new Parcelable.Creator<SetlistHeader>() {
+		@Override
+		public SetlistHeader createFromParcel(Parcel source) {
+			return new SetlistHeader(source);
+		}
+		
+		@Override
+		public SetlistHeader[] newArray(int size) {
+			return new SetlistHeader[size];
+		}
+	};
 }

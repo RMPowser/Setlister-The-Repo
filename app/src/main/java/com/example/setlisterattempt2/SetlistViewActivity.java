@@ -20,7 +20,7 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	
 	private DrawerLayout navDrawer;
 	
-	Setlist mSetlist = new Setlist("this is a setlist", "jan 26th", "8:53AM");
+	Setlist mSetlist;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 		
+		mSetlist = getIntent().getExtras().getParcelable(MainMenuActivity.NEW_SETLIST_KEY);
 		
 		//initTestSetlist();
 		initRecyclerView();

@@ -1,13 +1,15 @@
 package com.example.setlisterattempt2;
 
-public class SongEntry extends SetlistEntity{
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class SongEntry extends SetlistEntity implements Parcelable {
 
     // initializing default values for constructor
     private String title = "New Song";
     private String artist = "Artist";
     private String length = "3:45";
     private String keySignature = "C#";
-    boolean isSet = false;
 
     public SongEntry(String title, String artist, String length, String keySignature) {
     	// java doesn't support default parameters like c++ does, so I have to do this instead...
@@ -49,4 +51,37 @@ public class SongEntry extends SetlistEntity{
     public void setKeySignature(String keySignature) {
         this.keySignature = keySignature;
     }
+    
+    
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.artist);
+        dest.writeString(this.length);
+        dest.writeString(this.keySignature);
+    }
+    
+    protected SongEntry(Parcel in) {
+        this.title = in.readString();
+        this.artist = in.readString();
+        this.length = in.readString();
+        this.keySignature = in.readString();
+    }
+    
+    public static final Parcelable.Creator<SongEntry> CREATOR = new Parcelable.Creator<SongEntry>() {
+        @Override
+        public SongEntry createFromParcel(Parcel source) {
+            return new SongEntry(source);
+        }
+        
+        @Override
+        public SongEntry[] newArray(int size) {
+            return new SongEntry[size];
+        }
+    };
 }

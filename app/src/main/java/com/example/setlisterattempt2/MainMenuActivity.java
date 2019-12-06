@@ -8,24 +8,52 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainMenuActivity extends AppCompatActivity {
-    private Button newSetlistButton;
+	public static final String NEW_SETLIST_KEY = "new setlist";
+	
+	private Button newSetlistButton;
+    private Button loadSetlistButton;
+    private Button manageSetlistsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
-        newSetlistButton = findViewById(R.id.buttonNewSetlist);
-        newSetlistButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSetlistViewActivity();
-            }
-        });
-    }
-
-    private void openSetlistViewActivity() {
-        Intent intent = new Intent(this, SetlistViewActivity.class);
+	
+		initButtons();
+	}
+	
+	private void initButtons() {
+		newSetlistButton = findViewById(R.id.buttonNewSetlist);
+		newSetlistButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				CreateNewSetlistAndSwitchToSetlistActivity();
+			}
+		});
+		
+		loadSetlistButton = findViewById(R.id.buttonLoadSetlist);
+		loadSetlistButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+			
+			}
+		});
+		
+		manageSetlistsButton = findViewById(R.id.buttonManageSetlists);
+		manageSetlistsButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+	}
+	
+	private void CreateNewSetlistAndSwitchToSetlistActivity() {
+        Intent intent = new Intent(MainMenuActivity.this, SetlistViewActivity.class);
+        Setlist setlist = new Setlist("New Setlist", "Date", "Time");
+        intent.putExtra(NEW_SETLIST_KEY, setlist);
+        // the above function works because the setlist class and everything in it was made
+		// parcelable
         startActivity(intent);
     }
 }

@@ -9,10 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity
-            android:name=".SetlistViewActivity"></activity>
-
         <activity
             android:name=".MainMenuActivity"
             android:exported="true"
@@ -23,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".SetlistViewActivity" />
+        <activity android:name=".SongDataEntryActivity" />
     </application>
 
 </manifest>
