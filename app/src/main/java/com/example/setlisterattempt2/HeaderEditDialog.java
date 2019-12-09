@@ -37,7 +37,7 @@ public class HeaderEditDialog extends AppCompatDialogFragment {
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		view = inflater.inflate(R.layout.layout_header_edit_dialog, null);
 		builder.setView(view)
-				.setTitle("Song Data Entry")
+				.setTitle("Edit Header")
 				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
