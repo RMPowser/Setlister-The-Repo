@@ -65,14 +65,6 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		
 		if (getItemViewType(index) == TYPE_SET) {
 			((SetViewHolder) holder).setSetDetails((Set) mSetlist.getSongs().get(index));
-			((SetViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Set thingToRemove = (Set) mSetlist.getSongs().get(index);
-					int indexOfSet = thingToRemove.getSetIndex();
-					Toast.makeText(mContext, "index = " + indexOfSet, Toast.LENGTH_SHORT).show();
-				}
-			});
 			((SetViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
@@ -118,7 +110,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			((AddSetButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					mSetlist.AddSet();
+					mSetlist.InsertSet(index);
 					Refresh();
 				}
 			});

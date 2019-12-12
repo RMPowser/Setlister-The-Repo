@@ -43,10 +43,22 @@ public class Setlist implements Parcelable {
 	}
 	
 	public void InsertSet(int index) {
+		// add the new set in. index will be wrong
 		Set set = new Set();
 		CountOfSets++;
 		set.setSetIndex(CountOfSets);
 		songs.add(index, set);
+		
+		int newIndexForSets = 1; // new index starts at 1
+		
+		// correct all set indices using new index
+		for (int i = 0; i < songs.size(); i++) {
+			if (songs.get(i) instanceof Set){
+				((Set) songs.get(i)).setSetIndex(newIndexForSets);
+				newIndexForSets++;
+			}
+		}
+		
 		RedistributeButtons();
 	}
 	
@@ -79,12 +91,13 @@ public class Setlist implements Parcelable {
 				songs.remove(index);
 			}
 			
-			// then recreate all remaining sets with corrected indices
-			for (int i = index; i < songs.size() ; i++) {
+			int newIndexForSets = 1; // new index starts at 1
+			
+			// correct all set indices using new index
+			for (int i = 0; i < songs.size(); i++) {
 				if (songs.get(i) instanceof Set){
-					songs.remove(i);
-					CountOfSets--;
-					InsertSet(i);
+					((Set) songs.get(i)).setSetIndex(newIndexForSets);
+					newIndexForSets++;
 				}
 			}
 			
@@ -97,23 +110,34 @@ public class Setlist implements Parcelable {
 	public void Clear() {
 		CountOfSets = 0;
 		songs.clear();
-		MakeSureThereIsOnlyOneAddSetButtonAndItIsAtTheEnd();
+		MakeSureThereIsOneAddSetButtonPerSet();
 	}
 	
 	private void RedistributeButtons() { // makes sure these two functions are always called in
 		// this order
-		MakeSureThereIsOnlyOneAddSetButtonAndItIsAtTheEnd();
+		MakeSureThereIsOneAddSetButtonPerSet();
 		MakeSureThereIsOneAddSongEntryButtonPerSet();
 	}
 	
-	private void MakeSureThereIsOnlyOneAddSetButtonAndItIsAtTheEnd() { // not to be used outside
+	private void MakeSureThereIsOneAddSetButtonPerSet() { // not to be used outside
 		// of RedistributeButtons()
+		// first get rid of all the AddSet buttons
 		for (int i = 0; i < songs.size(); i++) {
 			if (songs.get(i) instanceof ButtonAddSet) {
 				songs.remove(i);
 				i--;
 			}
 		}
+		
+		// then, add them back in at the right spots
+		for (int i = 0; i < songs.size(); i++) {
+			if (songs.get(i) instanceof Set) {
+				ButtonAddSet button = new ButtonAddSet();
+				songs.add(i, button);
+				i++;
+			}
+		}
+		// finally, put one at the very end
 		ButtonAddSet button = new ButtonAddSet();
 		songs.add(button);
 	}
@@ -127,10 +151,11 @@ public class Setlist implements Parcelable {
 				i--;
 			}
 		}
+		
 		// then, add them back in at the right spots
 		for (int i = 0; i < songs.size(); i++) {
 			if ((songs.get(i) instanceof Set || songs.get(i) instanceof ButtonAddSet) && i != 0) {
-				if (!(songs.get(i - 1) instanceof ButtonAddSongEntry) && !(songs.get(i - 1) instanceof SetlistHeader)) {
+				if (!(songs.get(i - 1) instanceof ButtonAddSongEntry) && !(songs.get(i - 1) instanceof ButtonAddSet) && !(songs.get(i - 1) instanceof SetlistHeader)) {
 					ButtonAddSongEntry button = new ButtonAddSongEntry();
 					songs.add(i, button);
 					i++;
@@ -138,9 +163,6 @@ public class Setlist implements Parcelable {
 			}
 		}
 	}
-	
-	
-	
 	
 	
 	// parcelable functions below this point

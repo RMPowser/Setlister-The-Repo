@@ -61,7 +61,6 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	
 	private void initTestSetlist() {
 		Log.i(TAG, "initTestSetlist: called.");
-		mSetlist.Clear();
 		mSetlist.AddSet();
 		for (int i = 0; i < 8; i++) {
 			mSetlist.AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
@@ -70,7 +69,6 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		for (int i = 0; i < 8; i++) {
 			mSetlist.AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
 		}
-		mSetlist.AddHeader("Setlist Title/Location", "Jan 26, 1995", "8:00AM");
 	}
 	
 	private void initRecyclerView() {
