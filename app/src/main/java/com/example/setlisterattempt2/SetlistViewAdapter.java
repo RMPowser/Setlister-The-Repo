@@ -69,7 +69,8 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 				@Override
 				public boolean onLongClick(View v) {
 					Toast.makeText(mContext, "long clicked set. activate remove mode", Toast.LENGTH_SHORT).show();
-					return false;
+					return true; /*return true so that the click event is consumed and doesn't
+					trigger OnClickListener */
 				}
 			});
 		} else if (getItemViewType(index) == TYPE_SONG) {
@@ -77,7 +78,11 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			((SongEntryViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(mContext, "Open song editing menu here", Toast.LENGTH_SHORT).show();
+					String title = ((SongEntry) mSetlist.getSongs().get(index)).getTitle();
+					String artist = ((SongEntry) mSetlist.getSongs().get(index)).getArtist();
+					String length = ((SongEntry) mSetlist.getSongs().get(index)).getLength();
+					String key = ((SongEntry) mSetlist.getSongs().get(index)).getKeySignature();
+					((SetlistViewActivity) mContext).OpenSongDataEditDialog(index, title, artist, length, key);
 				}
 			});
 			((SongEntryViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -85,7 +90,8 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 				public boolean onLongClick(View v) {
 					Toast.makeText(mContext, "long clicked song entry. activate remove mode",
 							Toast.LENGTH_SHORT).show();
-					return false;
+					return true; /*return true so that the click event is consumed and doesn't
+					trigger OnClickListener */
 				}
 			});
 		} else if (getItemViewType(index) == TYPE_HEADER) {

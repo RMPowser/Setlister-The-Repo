@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 
-public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener {
+public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener, SongDataEditDialog.SongDataEditDialogListener {
 	private static final String TAG = "SetlistViewActivity";
 	
 	private DrawerLayout navDrawer;
@@ -81,16 +81,6 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 	}
 	
-	public void OpenSongDataEntryDialog(int position) {
-		SongDataEntryDialog dialog = new SongDataEntryDialog(position);
-		dialog.show(getSupportFragmentManager(), "SongDataEntryDialog");
-	}
-	
-	public void OpenHeaderEditDialog(String title, String date, String time){
-		HeaderEditDialog dialog = new HeaderEditDialog(title, date, time);
-		dialog.show(getSupportFragmentManager(), "HeaderEditDialog");
-	}
-	
 	
 	// handles back button when navigation drawer is open
 	@Override
@@ -102,19 +92,40 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		}
 	}
 	
+	// override and function for SongDataEntryDialogListener
+	public void OpenSongDataEntryDialog(int position) {
+		SongDataEntryDialog dialog = new SongDataEntryDialog(position);
+		dialog.show(getSupportFragmentManager(), "SongDataEntryDialog");
+	}
 	
-	// override for SongDataEntryDialogListener
 	@Override
 	public void CreateAndInsertNewSongEntry(int position, String title, String artist, String length, String key) {
 		mSetlist.InsertSong(position, title, artist, length, key);
 		adapter.Refresh();
 	}
 	
-	
-	// override for HeaderEditDialogListener
+	// override and function for HeaderEditDialogListener
+	public void OpenHeaderEditDialog(String title, String date, String time){
+		HeaderEditDialog dialog = new HeaderEditDialog(title, date, time);
+		dialog.show(getSupportFragmentManager(), "HeaderEditDialog");
+	}
 	@Override
 	public void ApplyHeaderInfo(String title, String date, String time) {
 		mSetlist.AddHeader(title, date, time);
+		adapter.Refresh();
+	}
+	
+	// override and function for SongDataEditDialogListener
+	public void OpenSongDataEditDialog(int position, String title, String artist, String length, String key) {
+		SongDataEditDialog dialog = new SongDataEditDialog(position, title, artist, length, key);
+		dialog.show(getSupportFragmentManager(), "SongDataEditDialog");
+	}
+	@Override
+	public void ModifySongEntry(int position, String title, String artist, String length, String key) {
+		((SongEntry)mSetlist.getSongs().get(position)).setTitle(title);
+		((SongEntry)mSetlist.getSongs().get(position)).setArtist(artist);
+		((SongEntry)mSetlist.getSongs().get(position)).setLength(length);
+		((SongEntry)mSetlist.getSongs().get(position)).setKeySignature(key);
 		adapter.Refresh();
 	}
 }
