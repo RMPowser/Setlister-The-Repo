@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 
-public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener, SongDataEditDialog.SongDataEditDialogListener {
+public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener, SongDataEditDialog.SongDataEditDialogListener, RemoveDialog.RemoveDialogListener {
 	private static final String TAG = "SetlistViewActivity";
 	
 	private DrawerLayout navDrawer;
@@ -35,7 +35,7 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		
 		mSetlist = getIntent().getExtras().getParcelable(MainMenuActivity.NEW_SETLIST_KEY);
 		
-		//initTestSetlist();
+		initTestSetlist();
 		initRecyclerView();
 	}
 	
@@ -126,6 +126,18 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		((SongEntry)mSetlist.getSongs().get(position)).setArtist(artist);
 		((SongEntry)mSetlist.getSongs().get(position)).setLength(length);
 		((SongEntry)mSetlist.getSongs().get(position)).setKeySignature(key);
+		adapter.Refresh();
+	}
+	
+	// override and function for RemoveDialog
+	public void OpenRemoveDialog(SetlistEntity thingToRemove, int indexOfThing){
+		RemoveDialog dialog = new RemoveDialog(thingToRemove, indexOfThing);
+		dialog.show(getSupportFragmentManager(), "RemoveDialog");
+	}
+	
+	@Override
+	public void RemoveFromSetlist(int index) {
+		mSetlist.RemoveAt(index);
 		adapter.Refresh();
 	}
 }

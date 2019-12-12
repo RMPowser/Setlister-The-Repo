@@ -68,16 +68,30 @@ public class Setlist implements Parcelable {
 	
 	public void RemoveAt(int index) {
 		if (songs.get(index) instanceof Set) {
+			// remove the set itself
+			songs.remove(index);
+			
+			// subtract 1 from the count of all sets
 			CountOfSets--;
-			songs.remove(index); // remove the set itself
 			
 			while (songs.get(index) instanceof SongEntry) {
-				// and then remove everything after it up until the next set
+				// then remove everything after it up until the next set
 				songs.remove(index);
 			}
+			
+			// then recreate all remaining sets with corrected indices
+			for (int i = index; i < songs.size() ; i++) {
+				if (songs.get(i) instanceof Set){
+					songs.remove(i);
+					CountOfSets--;
+					InsertSet(i);
+				}
+			}
+			
 		} else if (songs.get(index) instanceof SongEntry || songs.get(index) instanceof SetlistHeader) {
 			songs.remove(index);
 		}
+		RedistributeButtons();
 	}
 	
 	public void Clear() {

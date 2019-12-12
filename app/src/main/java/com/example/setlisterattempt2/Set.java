@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Set extends SetlistEntity implements Parcelable {
-	int setIndex = -1;
+	private int setIndex = -1;
 	
 	public int getSetIndex() {
 		return setIndex;

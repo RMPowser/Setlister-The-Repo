@@ -83,7 +83,7 @@ public class SongDataEditDialog extends AppCompatDialogFragment {
 			listener = (SongDataEditDialogListener) context;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(context.toString() +
-					" must implement SongDataEntryDialogListener");
+					" must implement SongDataEditDialogListener");
 		}
 	}
 	

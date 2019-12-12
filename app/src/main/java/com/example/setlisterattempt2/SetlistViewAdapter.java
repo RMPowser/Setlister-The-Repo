@@ -65,10 +65,19 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		
 		if (getItemViewType(index) == TYPE_SET) {
 			((SetViewHolder) holder).setSetDetails((Set) mSetlist.getSongs().get(index));
+			((SetViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Set thingToRemove = (Set) mSetlist.getSongs().get(index);
+					int indexOfSet = thingToRemove.getSetIndex();
+					Toast.makeText(mContext, "index = " + indexOfSet, Toast.LENGTH_SHORT).show();
+				}
+			});
 			((SetViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
-					Toast.makeText(mContext, "long clicked set. activate remove mode", Toast.LENGTH_SHORT).show();
+					SetlistEntity thingToRemove = mSetlist.getSongs().get(index);
+					((SetlistViewActivity) mContext).OpenRemoveDialog(thingToRemove, index);
 					return true; /*return true so that the click event is consumed and doesn't
 					trigger OnClickListener */
 				}
@@ -88,8 +97,8 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			((SongEntryViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
-					Toast.makeText(mContext, "long clicked song entry. activate remove mode",
-							Toast.LENGTH_SHORT).show();
+					SetlistEntity thingToRemove = mSetlist.getSongs().get(index);
+					((SetlistViewActivity) mContext).OpenRemoveDialog(thingToRemove, index);
 					return true; /*return true so that the click event is consumed and doesn't
 					trigger OnClickListener */
 				}
