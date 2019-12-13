@@ -6,11 +6,17 @@ import android.os.Parcelable;
 // this class exists as a placeholder for the ViewHolder to see
 public class ButtonAddSet extends SetlistEntity implements Parcelable {
 	
+	public ButtonAddSet(){
+		super("buttonAddSet");
+	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "ButtonAddSet{}";
+	}
 	
 	// parcelable functions below this point
+	
 	@Override
 	public int describeContents() {
 		return 0;
@@ -20,10 +26,8 @@ public class ButtonAddSet extends SetlistEntity implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 	}
 	
-	public ButtonAddSet() {
-	}
-	
 	protected ButtonAddSet(Parcel in) {
+		super("buttonAddSet");
 	}
 	
 	public static final Parcelable.Creator<ButtonAddSet> CREATOR = new Parcelable.Creator<ButtonAddSet>() {

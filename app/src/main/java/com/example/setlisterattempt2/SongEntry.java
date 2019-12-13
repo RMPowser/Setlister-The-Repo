@@ -12,7 +12,8 @@ public class SongEntry extends SetlistEntity implements Parcelable {
     private String keySignature = "C#";
 
     public SongEntry(String title, String artist, String length, String keySignature) {
-    	// java doesn't support default parameters like c++ does, so I have to do this instead...
+        super("song");
+        // java doesn't support default parameters like c++ does, so I have to do this instead...
 		// makes me sad :C
         if (title != null) { this.title = title; }
         if (artist != null) { this.artist = artist; }
@@ -52,9 +53,19 @@ public class SongEntry extends SetlistEntity implements Parcelable {
         this.keySignature = keySignature;
     }
     
+    @Override
+    public String toString() {
+        return "SongEntry{" +
+                "title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", length='" + length + '\'' +
+                ", keySignature='" + keySignature + '\'' +
+                '}';
+    }
     
     
     
+
     
     // parcelable functions below this point
     @Override
@@ -71,6 +82,7 @@ public class SongEntry extends SetlistEntity implements Parcelable {
     }
     
     protected SongEntry(Parcel in) {
+        super("song");
         this.title = in.readString();
         this.artist = in.readString();
         this.length = in.readString();

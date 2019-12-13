@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-	private static final String TAG = "SetlistViewAdapter";
 	private static int TYPE_SONG = 1;
 	private static int TYPE_SET = 2;
 	private static int TYPE_HEADER = 3;
@@ -23,9 +22,16 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	private final Context mContext;
 	
 	public SetlistViewAdapter(Context Context, Setlist setlist) {
-		Log.i(TAG, "SetlistViewAdapter: constructor called.");
 		mContext = Context;
 		mSetlist = setlist;
+	}
+	
+	public Setlist getmSetlist() {
+		return mSetlist;
+	}
+	
+	public void setmSetlist(Setlist mSetlist) {
+		this.mSetlist = mSetlist;
 	}
 	
 	public void Refresh() {
@@ -35,7 +41,6 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	@NonNull
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		Log.i(TAG, "onCreateViewHolder: called.");
 		
 		View view;
 		if (viewType == TYPE_SET) {
@@ -60,7 +65,6 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	
 	@Override
 	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-		Log.d(TAG, "onBindViewHolder: called.");
 		final int index = position;
 		
 		if (getItemViewType(index) == TYPE_SET) {
@@ -146,12 +150,10 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	
 	
 	private class SetViewHolder extends RecyclerView.ViewHolder {
-		private static final String TAG = "SetViewHolder";
 		TextView setNumber;
 		
 		public SetViewHolder(@NonNull View itemView) {
 			super(itemView);
-			Log.i(TAG, "SetViewHolder: constructor called.");
 			setNumber = itemView.findViewById(R.id.set_number_text);
 		}
 		
@@ -162,7 +164,6 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	}
 	
 	private class SongEntryViewHolder extends RecyclerView.ViewHolder {
-		private static final String TAG = "SongEntryViewHolder";
 		TextView title;
 		TextView artist;
 		TextView length;
@@ -170,7 +171,6 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		
 		public SongEntryViewHolder(@NonNull View itemView) {
 			super(itemView);
-			Log.i(TAG, "SongEntryViewHolder: constructor called.");
 			title = itemView.findViewById(R.id.song_title_text);
 			artist = itemView.findViewById(R.id.artist_text);
 			length = itemView.findViewById(R.id.length_text);

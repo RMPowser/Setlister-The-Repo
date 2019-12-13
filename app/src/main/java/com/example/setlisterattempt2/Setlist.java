@@ -3,14 +3,20 @@ package com.example.setlisterattempt2;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Setlist implements Parcelable {
 	
 	// initializing default values for constructor
 	private ArrayList<SetlistEntity> songs = new ArrayList<>();
-	private int CountOfSets = 0; // variable counts how many sets are in the setlist. used to
+	
+	
+	// variable counts how many sets are in the setlist. used to
 	// determine the number of a new set
+	private int CountOfSets = 0;
+	
+	
 	
 	public Setlist(String title, String date, String time) {
 		// all setlists start with a default header
@@ -110,7 +116,8 @@ public class Setlist implements Parcelable {
 	public void Clear() {
 		CountOfSets = 0;
 		songs.clear();
-		MakeSureThereIsOneAddSetButtonPerSet();
+		AddHeader("New Setlist", "Jan 1st", "8PM");
+		RedistributeButtons();
 	}
 	
 	private void RedistributeButtons() { // makes sure these two functions are always called in
@@ -164,6 +171,13 @@ public class Setlist implements Parcelable {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		return "Setlist{" +
+				"songs=" + songs +
+				"CountOfSets=" + CountOfSets +
+				'}';
+	}
 	
 	// parcelable functions below this point
 	@Override

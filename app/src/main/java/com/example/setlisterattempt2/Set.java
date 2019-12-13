@@ -3,8 +3,14 @@ package com.example.setlisterattempt2;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Set extends SetlistEntity implements Parcelable {
+
+public class Set extends SetlistEntity implements Parcelable{
+	
 	private int setIndex = -1;
+	
+	public Set() {
+		super("set");
+	}
 	
 	public int getSetIndex() {
 		return setIndex;
@@ -12,6 +18,13 @@ public class Set extends SetlistEntity implements Parcelable {
 	
 	public void setSetIndex(int setIndex) {
 		this.setIndex = setIndex;
+	}
+	
+	@Override
+	public String toString() {
+		return "Set{" +
+				"setIndex=" + setIndex +
+				'}';
 	}
 	
 	
@@ -29,10 +42,8 @@ public class Set extends SetlistEntity implements Parcelable {
 		dest.writeInt(this.setIndex);
 	}
 	
-	public Set() {
-	}
-	
 	protected Set(Parcel in) {
+		super("set");
 		this.setIndex = in.readInt();
 	}
 	

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 
@@ -51,7 +52,7 @@ public class MainMenuActivity extends AppCompatActivity {
 	private void CreateNewSetlistAndSwitchToSetlistActivity() {
 		Intent intent = new Intent(MainMenuActivity.this, SetlistViewActivity.class);
 		Setlist setlist = new Setlist("New Setlist", "Date", "Time");
-		intent.putExtra(NEW_SETLIST_KEY, setlist);
+		intent.putExtra(NEW_SETLIST_KEY, (Parcelable) setlist);
 		// the above function works because the Setlist class and all children of the SetlistEntity
 		// class were made parcelable
 		startActivity(intent);

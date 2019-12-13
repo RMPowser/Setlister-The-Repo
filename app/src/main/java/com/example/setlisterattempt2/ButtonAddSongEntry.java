@@ -4,8 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 // this class exists as a placeholder for the ViewHolder to see
-public class ButtonAddSongEntry extends SetlistEntity implements Parcelable {
+public class ButtonAddSongEntry extends SetlistEntity implements Parcelable{
 	
+	public ButtonAddSongEntry() {
+		super("buttonAddSong");
+	}
+	
+	@Override
+	public String toString() {
+		return "ButtonAddSongEntry{}";
+	}
+
 	
 	
 	
@@ -20,10 +29,8 @@ public class ButtonAddSongEntry extends SetlistEntity implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 	}
 	
-	public ButtonAddSongEntry() {
-	}
-	
 	protected ButtonAddSongEntry(Parcel in) {
+		super("buttonAddSong");
 	}
 	
 	public static final Parcelable.Creator<ButtonAddSongEntry> CREATOR = new Parcelable.Creator<ButtonAddSongEntry>() {

@@ -4,11 +4,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class SetlistHeader extends SetlistEntity implements Parcelable {
+	
 	private String titleOrLocation;
 	private String date;
 	private String time;
 	
 	public SetlistHeader(String titleOrLocation, String date, String time) {
+		super("header");
 		this.titleOrLocation = titleOrLocation;
 		this.date = date;
 		this.time = time;
@@ -38,8 +40,17 @@ public class SetlistHeader extends SetlistEntity implements Parcelable {
 		this.time = time;
 	}
 	
+	@Override
+	public String toString() {
+		return "SetlistHeader{" +
+				"titleOrLocation='" + titleOrLocation + '\'' +
+				", date='" + date + '\'' +
+				", time='" + time + '\'' +
+				'}';
+	}
+
 	
-	
+
 	
 	
 	// parcelable functions below this point
@@ -56,6 +67,7 @@ public class SetlistHeader extends SetlistEntity implements Parcelable {
 	}
 	
 	protected SetlistHeader(Parcel in) {
+		super("header");
 		this.titleOrLocation = in.readString();
 		this.date = in.readString();
 		this.time = in.readString();
