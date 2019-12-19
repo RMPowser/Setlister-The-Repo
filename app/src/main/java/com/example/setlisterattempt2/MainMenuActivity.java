@@ -1,12 +1,11 @@
 package com.example.setlisterattempt2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
 	public static final String SETLIST_KEY = "setlist";
@@ -28,7 +27,12 @@ public class MainMenuActivity extends AppCompatActivity {
 		newSetlistButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				CreateNewSetlistAndSwitchToSetlistActivity();
+				Intent intent = new Intent(MainMenuActivity.this, SetlistViewActivity.class);
+				Setlist setlist = new Setlist("New Setlist", "Date", "Time");
+				intent.putExtra(SETLIST_KEY, setlist);
+				// the above function works because the Setlist class and all children of the SetlistEntity
+				// class were made parcelable
+				startActivity(intent);
 			}
 		});
 		
@@ -47,14 +51,5 @@ public class MainMenuActivity extends AppCompatActivity {
 				startActivity(new Intent(MainMenuActivity.this, ManagementViewActivity.class));
 			}
 		});
-	}
-	
-	private void CreateNewSetlistAndSwitchToSetlistActivity() {
-		Intent intent = new Intent(MainMenuActivity.this, SetlistViewActivity.class);
-		Setlist setlist = new Setlist("New Setlist", "Date", "Time");
-		intent.putExtra(SETLIST_KEY, setlist);
-		// the above function works because the Setlist class and all children of the SetlistEntity
-		// class were made parcelable
-		startActivity(intent);
 	}
 }

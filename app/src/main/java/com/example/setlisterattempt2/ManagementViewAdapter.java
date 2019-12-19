@@ -19,7 +19,7 @@ public class ManagementViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 	
 	public ManagementViewAdapter(Context context, ArrayList<SetlistHeader> headerList) {
 		this.context = context;
-		this.headerList = headerList;
+		setHeaderList(headerList);
 	}
 	
 	public ArrayList<SetlistHeader> getHeaderList() {
@@ -54,7 +54,7 @@ public class ManagementViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 				String fileName = headerList.get(index).getSetlistFileName();
 				String filePath = context.getFilesDir().getPath() + "/" + fileName;
 				Intent intent = new Intent(context, SetlistViewActivity.class);
-				Setlist setlist = SetlistViewActivity.LoadSetlist(filePath);
+				Setlist setlist = HelperFunctions.LoadSetlist(filePath);
 				intent.putExtra(SETLIST_KEY, setlist);
 				// the above function works because the Setlist class and all children of the SetlistEntity
 				// class were made parcelable
@@ -65,8 +65,8 @@ public class ManagementViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 			
 			@Override
 			public boolean onLongClick(View v) {
-				String filePath = headerList.get(index).getSetlistFileName();
-				((ManagementViewActivity) context).OpenDeleteFileDialog(filePath);
+				String fileName = headerList.get(index).getSetlistFileName();
+				((ManagementViewActivity) context).OpenDeleteFileDialog(fileName);
 				return true;
 			}
 		});
@@ -74,6 +74,6 @@ public class ManagementViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 	
 	@Override
 	public int getItemCount() {
-		return headerList.size();
+		return getHeaderList().size();
 	}
 }

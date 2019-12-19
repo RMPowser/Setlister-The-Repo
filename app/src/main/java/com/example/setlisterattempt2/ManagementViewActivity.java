@@ -46,7 +46,7 @@ public class ManagementViewActivity extends AppCompatActivity implements DeleteF
 		Gson gson;
 		
 		RuntimeTypeAdapterFactory runtimeTypeAdapterFactory =
-				SetlistViewActivity.CreateRuntimeTypeAdapterFactory();
+				HelperFunctions.CreateRuntimeTypeAdapterFactory();
 		
 		ArrayList<SetlistHeader> setlistHeaders = new ArrayList<>();
 		
@@ -83,8 +83,12 @@ public class ManagementViewActivity extends AppCompatActivity implements DeleteF
 		return setlistHeaders;
 	}
 	
-	public void OpenDeleteFileDialog(String filePath) {
-		DeleteFileDialog dialog = new DeleteFileDialog(filePath);
+	
+	
+	
+	// override and function for DeleteFileDialogListener
+	public void OpenDeleteFileDialog(String fileName) {
+		DeleteFileDialog dialog = new DeleteFileDialog(fileName);
 		dialog.show(getSupportFragmentManager(), "DeleteFileDialog");
 	}
 	
