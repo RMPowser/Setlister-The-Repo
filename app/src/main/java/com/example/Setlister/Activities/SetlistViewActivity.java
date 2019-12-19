@@ -1,5 +1,6 @@
 package com.example.Setlister.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Setlister.Dialogs.HeaderEditDialog;
+import com.example.Setlister.Dialogs.NewSetlistConfirmDialog;
 import com.example.Setlister.HelperFunctions;
 import com.example.Setlister.R;
 import com.example.Setlister.Dialogs.RemoveDialog;
@@ -25,7 +27,7 @@ import com.example.Setlister.Dialogs.SongDataEntryDialog;
 import com.example.Setlister.ViewAdapters.SetlistViewAdapter;
 import com.google.android.material.navigation.NavigationView;
 
-public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener, SongDataEditDialog.SongDataEditDialogListener, RemoveDialog.RemoveDialogListener {
+public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener, SongDataEditDialog.SongDataEditDialogListener, RemoveDialog.RemoveDialogListener, NewSetlistConfirmDialog.NewSetlistConfirmDialogListener {
 	private static final String TAG = "SetlistViewActivity";
 	
 	private DrawerLayout navDrawer;
@@ -49,7 +51,7 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 		switch (menuItem.getItemId()) {
 			case R.id.nav_new_setlist:
-				Toast.makeText(this, "new setlist", Toast.LENGTH_SHORT).show();
+				OpenNewSetlistConfirmDialog(adapter.getSetlist(), this);
 				break;
 			case R.id.nav_load_setlist:
 				startActivity(new Intent(SetlistViewActivity.this, ManagementViewActivity.class));
@@ -145,6 +147,18 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	@Override
 	public void RemoveFromSetlist(int index) {
 		adapter.getSetlist().RemoveAt(index);
+		adapter.Refresh();
+	}
+	
+	// override and function for NewSetlistConfirmDialog
+	public void OpenNewSetlistConfirmDialog(Setlist setlistToSave, Context context){
+		NewSetlistConfirmDialog dialog = new NewSetlistConfirmDialog(setlistToSave, context);
+		dialog.show(getSupportFragmentManager(), "NewSetlistConfirmDialog");
+	}
+	@Override
+	public void CreateNewSetlist() {
+		Setlist newSetlist = new Setlist("New Setlist", "Date", "Time");
+		adapter.setSetlist(newSetlist);
 		adapter.Refresh();
 	}
 }

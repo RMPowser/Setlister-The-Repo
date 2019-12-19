@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import com.example.Setlister.R;
 
 
-// this dialog handles the removal of both Sets and SongEntries
+// this dialog handles the deletion of saved setlists from internal storage
 
 public class DeleteFileDialog extends AppCompatDialogFragment {
 	
@@ -30,8 +30,7 @@ public class DeleteFileDialog extends AppCompatDialogFragment {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		
 		LayoutInflater inflater = getActivity().getLayoutInflater();
-		View view = inflater.inflate(R.layout.layout_remove_dialog, null); // uses the same
-		// format as remove dialog but with an extra button
+		View view = inflater.inflate(R.layout.layout_blank_dialog, null);
 		
 		builder.setView(view)
 				.setTitle("Delete file?\n" + fileName)

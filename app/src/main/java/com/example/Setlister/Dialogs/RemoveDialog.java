@@ -35,7 +35,7 @@ public class RemoveDialog extends AppCompatDialogFragment {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		
 		LayoutInflater inflater = getActivity().getLayoutInflater();
-		View view = inflater.inflate(R.layout.layout_remove_dialog, null);
+		View view = inflater.inflate(R.layout.layout_blank_dialog, null);
 		if (thingToRemove instanceof SongEntry) {
 			String songTitle = ((SongEntry) thingToRemove).getTitle();
 			
