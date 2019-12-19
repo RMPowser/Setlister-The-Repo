@@ -4,4 +4,5 @@
     <string name="textButtonLoadSetlist">Load Setlist</string>
     <string name="textButtonSaveThisSetlist">Save This Setlist</string>
     <string name="textButtonManageSetlist">Manage Setlists</string>
+    <string name="title_activity_management_view">ManagementViewActivity</string>
 </resources>

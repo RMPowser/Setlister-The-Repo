@@ -8,6 +8,7 @@ public class SetlistHeader extends SetlistEntity implements Parcelable {
 	private String titleOrLocation;
 	private String date;
 	private String time;
+	transient private String SetlistFileName;
 	
 	public SetlistHeader(String titleOrLocation, String date, String time) {
 		super("header");
@@ -38,6 +39,14 @@ public class SetlistHeader extends SetlistEntity implements Parcelable {
 	
 	public void setTime(String time) {
 		this.time = time;
+	}
+	
+	public String getSetlistFileName() {
+		return SetlistFileName;
+	}
+	
+	public void setSetlistFileName(String setlistFileName) {
+		SetlistFileName = setlistFileName;
 	}
 	
 	@Override

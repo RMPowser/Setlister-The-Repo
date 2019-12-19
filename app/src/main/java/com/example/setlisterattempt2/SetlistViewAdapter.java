@@ -1,12 +1,10 @@
 package com.example.setlisterattempt2;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,20 +16,20 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	private static int TYPE_ADD_SET_BUTTON = 4;
 	private static int TYPE_ADD_SONG_ENTRY_BUTTON = 5;
 	
-	private Setlist mSetlist;
-	private final Context mContext;
+	private Setlist setlist;
+	private final Context context;
 	
-	public SetlistViewAdapter(Context Context, Setlist setlist) {
-		mContext = Context;
-		mSetlist = setlist;
+	public SetlistViewAdapter(Context context, Setlist setlist) {
+		this.context = context;
+		this.setlist = setlist;
 	}
 	
-	public Setlist getmSetlist() {
-		return mSetlist;
+	public Setlist getSetlist() {
+		return setlist;
 	}
 	
-	public void setmSetlist(Setlist mSetlist) {
-		this.mSetlist = mSetlist;
+	public void setSetlist(Setlist setlist) {
+		this.setlist = setlist;
 	}
 	
 	public void Refresh() {
@@ -44,19 +42,19 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		
 		View view;
 		if (viewType == TYPE_SET) {
-			view = LayoutInflater.from(mContext).inflate(R.layout.layout_set, parent, false);
+			view = LayoutInflater.from(context).inflate(R.layout.layout_set, parent, false);
 			return new SetViewHolder(view);
 		} else if (viewType == TYPE_SONG) {
-			view = LayoutInflater.from(mContext).inflate(R.layout.layout_song_entry, parent, false);
+			view = LayoutInflater.from(context).inflate(R.layout.layout_song_entry, parent, false);
 			return new SongEntryViewHolder(view);
 		} else if (viewType == TYPE_HEADER) {
-			view = LayoutInflater.from(mContext).inflate(R.layout.layout_setlist_header, parent, false);
+			view = LayoutInflater.from(context).inflate(R.layout.layout_setlist_header, parent, false);
 			return new HeaderViewHolder(view);
 		} else if (viewType == TYPE_ADD_SET_BUTTON) {
-			view = LayoutInflater.from(mContext).inflate(R.layout.layout_add_set_button, parent, false);
+			view = LayoutInflater.from(context).inflate(R.layout.layout_add_set_button, parent, false);
 			return new AddSetButtonViewHolder(view);
 		} else if (viewType == TYPE_ADD_SONG_ENTRY_BUTTON) {
-			view = LayoutInflater.from(mContext).inflate(R.layout.layout_add_song_entry_button,
+			view = LayoutInflater.from(context).inflate(R.layout.layout_add_song_entry_button,
 					parent, false);
 			return new AddSongEntryButtonViewHolder(view);
 		}
@@ -68,53 +66,53 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		final int index = position;
 		
 		if (getItemViewType(index) == TYPE_SET) {
-			((SetViewHolder) holder).setSetDetails((Set) mSetlist.getSongs().get(index));
+			((SetViewHolder) holder).setSetDetails((Set) setlist.getSongs().get(index));
 			((SetViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
-					SetlistEntity thingToRemove = mSetlist.getSongs().get(index);
-					((SetlistViewActivity) mContext).OpenRemoveDialog(thingToRemove, index);
+					SetlistEntity thingToRemove = setlist.getSongs().get(index);
+					((SetlistViewActivity) context).OpenRemoveDialog(thingToRemove, index);
 					return true; /*return true so that the click event is consumed and doesn't
 					trigger OnClickListener */
 				}
 			});
 		} else if (getItemViewType(index) == TYPE_SONG) {
-			((SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) mSetlist.getSongs().get(index));
+			((SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) setlist.getSongs().get(index));
 			((SongEntryViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String title = ((SongEntry) mSetlist.getSongs().get(index)).getTitle();
-					String artist = ((SongEntry) mSetlist.getSongs().get(index)).getArtist();
-					String length = ((SongEntry) mSetlist.getSongs().get(index)).getLength();
-					String key = ((SongEntry) mSetlist.getSongs().get(index)).getKeySignature();
-					((SetlistViewActivity) mContext).OpenSongDataEditDialog(index, title, artist, length, key);
+					String title = ((SongEntry) setlist.getSongs().get(index)).getTitle();
+					String artist = ((SongEntry) setlist.getSongs().get(index)).getArtist();
+					String length = ((SongEntry) setlist.getSongs().get(index)).getLength();
+					String key = ((SongEntry) setlist.getSongs().get(index)).getKeySignature();
+					((SetlistViewActivity) context).OpenSongDataEditDialog(index, title, artist, length, key);
 				}
 			});
 			((SongEntryViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
-					SetlistEntity thingToRemove = mSetlist.getSongs().get(index);
-					((SetlistViewActivity) mContext).OpenRemoveDialog(thingToRemove, index);
+					SetlistEntity thingToRemove = setlist.getSongs().get(index);
+					((SetlistViewActivity) context).OpenRemoveDialog(thingToRemove, index);
 					return true; /*return true so that the click event is consumed and doesn't
 					trigger OnClickListener */
 				}
 			});
 		} else if (getItemViewType(index) == TYPE_HEADER) {
-			((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) mSetlist.getSongs().get(index));
+			((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) setlist.getSongs().get(index));
 			((HeaderViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String title = ((SetlistHeader) mSetlist.getSongs().get(0)).getTitleOrLocation();
-					String date = ((SetlistHeader) mSetlist.getSongs().get(0)).getDate();
-					String time = ((SetlistHeader) mSetlist.getSongs().get(0)).getTime();
-					((SetlistViewActivity) mContext).OpenHeaderEditDialog(title, date, time);
+					String title = ((SetlistHeader) setlist.getSongs().get(0)).getTitleOrLocation();
+					String date = ((SetlistHeader) setlist.getSongs().get(0)).getDate();
+					String time = ((SetlistHeader) setlist.getSongs().get(0)).getTime();
+					((SetlistViewActivity) context).OpenHeaderEditDialog(title, date, time);
 				}
 			});
 		} else if (getItemViewType(index) == TYPE_ADD_SET_BUTTON) {
 			((AddSetButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					mSetlist.InsertSet(index);
+					setlist.InsertSet(index);
 					Refresh();
 				}
 			});
@@ -122,7 +120,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			((AddSongEntryButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					((SetlistViewActivity) mContext).OpenSongDataEntryDialog(index);
+					((SetlistViewActivity) context).OpenSongDataEntryDialog(index);
 				}
 			});
 		}
@@ -130,20 +128,20 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	
 	@Override
 	public int getItemCount() {
-		return mSetlist.getSongs().size();
+		return setlist.getSongs().size();
 	}
 	
 	@Override
 	public int getItemViewType(int position) {
-		if (mSetlist.getSongs().get(position) instanceof Set) {
+		if (setlist.getSongs().get(position) instanceof Set) {
 			return TYPE_SET;
-		} else if (mSetlist.getSongs().get(position) instanceof SongEntry) {
+		} else if (setlist.getSongs().get(position) instanceof SongEntry) {
 			return TYPE_SONG;
-		} else if (mSetlist.getSongs().get(position) instanceof SetlistHeader) {
+		} else if (setlist.getSongs().get(position) instanceof SetlistHeader) {
 			return TYPE_HEADER;
-		} else if (mSetlist.getSongs().get(position) instanceof ButtonAddSet) {
+		} else if (setlist.getSongs().get(position) instanceof ButtonAddSet) {
 			return TYPE_ADD_SET_BUTTON;
-		} else if (mSetlist.getSongs().get(position) instanceof ButtonAddSongEntry) {
+		} else if (setlist.getSongs().get(position) instanceof ButtonAddSongEntry) {
 			return TYPE_ADD_SONG_ENTRY_BUTTON;
 		} else return -1;
 	}
@@ -182,25 +180,6 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 			artist.setText(songEntry.getArtist());
 			length.setText(songEntry.getLength());
 			keySignature.setText(songEntry.getKeySignature());
-		}
-	}
-	
-	private class HeaderViewHolder extends RecyclerView.ViewHolder {
-		TextView headerTitle;
-		TextView headerDate;
-		TextView headerTime;
-		
-		public HeaderViewHolder(@NonNull View itemView) {
-			super(itemView);
-			headerTitle = itemView.findViewById(R.id.setlistTitleText);
-			headerDate = itemView.findViewById(R.id.setlistDateTextView);
-			headerTime = itemView.findViewById(R.id.setlistTimeTextView);
-		}
-		
-		private void SetHeaderDetails(@NonNull SetlistHeader header) {
-			headerTitle.setText(header.getTitleOrLocation());
-			headerDate.setText(header.getDate());
-			headerTime.setText(header.getTime());
 		}
 	}
 	

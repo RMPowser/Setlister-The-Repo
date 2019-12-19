@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener, SongDataEditDialog.SongDataEditDialogListener, RemoveDialog.RemoveDialogListener {
 	private static final String TAG = "SetlistViewActivity";
@@ -35,7 +37,6 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setlist_view);
-		Log.i(TAG, "onCreate: called.");
 		
 		navDrawer = findViewById(R.id.setlist_drawer_layout);
 		NavigationView navigationView = findViewById(R.id.nav_view);
@@ -53,20 +54,21 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 				Toast.makeText(this, "new setlist", Toast.LENGTH_SHORT).show();
 				break;
 			case R.id.nav_load_setlist:
-				LoadSetlist("/data/data/com.example.setlisterattempt2/files/Test Setlist_Test Date_Test Time.setlist");
+				startActivity(new Intent(SetlistViewActivity.this, ManagementViewActivity.class));
 				break;
 			case R.id.nav_save_this_setlist:
-				SaveSetlist(adapter.getmSetlist());
+				SaveSetlist(adapter.getSetlist());
 				break;
 			case R.id.nav_manage_setlists:
-				Toast.makeText(this, "manage setlists", Toast.LENGTH_SHORT).show();
+				// this is an intentional duplicate of case R.id.nav_load_setlist
+				startActivity(new Intent(SetlistViewActivity.this, ManagementViewActivity.class));
 				break;
 		}
 		navDrawer.closeDrawer(GravityCompat.START);
 		return true;
 	}
 	
-	private RuntimeTypeAdapterFactory CreateRuntimeTypeAdapterFactory(){
+	public static RuntimeTypeAdapterFactory CreateRuntimeTypeAdapterFactory() {
 		RuntimeTypeAdapterFactory<SetlistEntity> runtimeTypeAdapterFactory =
 				RuntimeTypeAdapterFactory.of(SetlistEntity.class, "type")
 						.registerSubtype(Set.class, "set")
@@ -77,38 +79,32 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		return runtimeTypeAdapterFactory;
 	}
 	
-	private boolean LoadSetlist(String filepath){
+	public static Setlist LoadSetlist(String filepath) {
 		// file name is title of setlist
 		FileReader reader = null;
 		Gson gson;
 		RuntimeTypeAdapterFactory runtimeTypeAdapterFactory = CreateRuntimeTypeAdapterFactory();
 		
-		boolean result;
+		Setlist setlist = null;
 		
 		try {
 			File file = new File(filepath);
 			reader = new FileReader(file);
 			gson = new GsonBuilder().registerTypeAdapterFactory(runtimeTypeAdapterFactory).create();
 			Type entityType = new TypeToken<Setlist>(){}.getType();
-			Setlist setlist = gson.fromJson(reader, entityType);
-			adapter.setmSetlist(setlist);
-			adapter.Refresh();
-			result = true;
+			setlist = gson.fromJson(reader, entityType);
 		} catch (JsonSyntaxException | IOException e) {
 			e.printStackTrace();
-			result = false;
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
-					result = true;
 				} catch (IOException e) {
 					e.printStackTrace();
-					result = false;
 				}
 			}
 		}
-		return result;
+		return setlist;
 	}
 	
 	private boolean SaveSetlist(Setlist setlist) {
@@ -151,19 +147,19 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	
 	private void initTestSetlist() {
 		Log.i(TAG, "initTestSetlist: called.");
-		adapter.getmSetlist().AddHeader("Test Setlist", "Test Date", "Test Time");
-		adapter.getmSetlist().AddSet();
+		adapter.getSetlist().AddHeader("Test Setlist", "Test Date", "Test Time");
+		adapter.getSetlist().AddSet();
 		for (int i = 0; i < 8; i++) {
-			adapter.getmSetlist().AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
+			adapter.getSetlist().AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
 		}
-		adapter.getmSetlist().AddSet();
+		adapter.getSetlist().AddSet();
 		for (int i = 0; i < 8; i++) {
-			adapter.getmSetlist().AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
+			adapter.getSetlist().AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
 		}
 	}
 	
 	private void initRecyclerView() {
-		final Setlist mSetlist = getIntent().getExtras().getParcelable(MainMenuActivity.NEW_SETLIST_KEY);
+		final Setlist mSetlist = getIntent().getExtras().getParcelable(MainMenuActivity.SETLIST_KEY);
 		RecyclerView recyclerView = findViewById(R.id.setlist_recycler_view);
 		adapter = new SetlistViewAdapter(this, mSetlist);
 		recyclerView.setAdapter(adapter);
@@ -189,7 +185,7 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	
 	@Override
 	public void CreateAndInsertNewSongEntry(int position, String title, String artist, String length, String key) {
-		adapter.getmSetlist().InsertSong(position, title, artist, length, key);
+		adapter.getSetlist().InsertSong(position, title, artist, length, key);
 		adapter.Refresh();
 	}
 	
@@ -201,7 +197,7 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	
 	@Override
 	public void ApplyHeaderInfo(String title, String date, String time) {
-		adapter.getmSetlist().AddHeader(title, date, time);
+		adapter.getSetlist().AddHeader(title, date, time);
 		adapter.Refresh();
 	}
 	
@@ -213,10 +209,10 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	
 	@Override
 	public void ModifySongEntry(int position, String title, String artist, String length, String key) {
-		((SongEntry) adapter.getmSetlist().getSongs().get(position)).setTitle(title);
-		((SongEntry) adapter.getmSetlist().getSongs().get(position)).setArtist(artist);
-		((SongEntry) adapter.getmSetlist().getSongs().get(position)).setLength(length);
-		((SongEntry) adapter.getmSetlist().getSongs().get(position)).setKeySignature(key);
+		((SongEntry) adapter.getSetlist().getSongs().get(position)).setTitle(title);
+		((SongEntry) adapter.getSetlist().getSongs().get(position)).setArtist(artist);
+		((SongEntry) adapter.getSetlist().getSongs().get(position)).setLength(length);
+		((SongEntry) adapter.getSetlist().getSongs().get(position)).setKeySignature(key);
 		adapter.Refresh();
 	}
 	
@@ -228,7 +224,7 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 	
 	@Override
 	public void RemoveFromSetlist(int index) {
-		adapter.getmSetlist().RemoveAt(index);
+		adapter.getSetlist().RemoveAt(index);
 		adapter.Refresh();
 	}
 }
