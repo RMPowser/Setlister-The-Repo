@@ -1,4 +1,4 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister.Dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.example.Setlister.R;
 
 
 // this dialog handles the removal of both Sets and SongEntries

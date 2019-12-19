@@ -1,4 +1,4 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister.Activities;
 
 import android.os.Bundle;
 
@@ -6,6 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.Setlister.Dialogs.DeleteFileDialog;
+import com.example.Setlister.HelperFunctions;
+import com.example.Setlister.R;
+import com.example.Setlister.SetlistObjects.Setlist;
+import com.example.Setlister.SetlistObjects.SetlistHeader;
+import com.example.Setlister.ViewAdapters.ManagementViewAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;

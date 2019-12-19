@@ -1,4 +1,4 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister.Dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.example.Setlister.R;
 
 public class HeaderEditDialog extends AppCompatDialogFragment {
 	private EditText editTextTitle;

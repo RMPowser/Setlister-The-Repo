@@ -1,8 +1,15 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister;
 
 import android.content.Context;
 import android.widget.Toast;
 
+import com.example.Setlister.SetlistObjects.ButtonAddSet;
+import com.example.Setlister.SetlistObjects.ButtonAddSongEntry;
+import com.example.Setlister.SetlistObjects.Set;
+import com.example.Setlister.SetlistObjects.Setlist;
+import com.example.Setlister.SetlistObjects.SetlistEntity;
+import com.example.Setlister.SetlistObjects.SetlistHeader;
+import com.example.Setlister.SetlistObjects.SongEntry;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;

@@ -1,4 +1,4 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister;
 
 import org.junit.Test;
 

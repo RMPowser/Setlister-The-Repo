@@ -1,13 +1,22 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister.ViewAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.Setlister.SetlistObjects.ButtonAddSet;
+import com.example.Setlister.SetlistObjects.ButtonAddSongEntry;
+import com.example.Setlister.R;
+import com.example.Setlister.SetlistObjects.Set;
+import com.example.Setlister.SetlistObjects.Setlist;
+import com.example.Setlister.SetlistObjects.SetlistEntity;
+import com.example.Setlister.SetlistObjects.SetlistHeader;
+import com.example.Setlister.Activities.SetlistViewActivity;
+import com.example.Setlister.SetlistObjects.SongEntry;
 
 public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 	private static int TYPE_SONG = 1;

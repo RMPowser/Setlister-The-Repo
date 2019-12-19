@@ -1,4 +1,4 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister.ViewAdapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.Setlister.HelperFunctions;
+import com.example.Setlister.Activities.ManagementViewActivity;
+import com.example.Setlister.R;
+import com.example.Setlister.SetlistObjects.Setlist;
+import com.example.Setlister.SetlistObjects.SetlistHeader;
+import com.example.Setlister.Activities.SetlistViewActivity;
 
 import java.util.ArrayList;
 

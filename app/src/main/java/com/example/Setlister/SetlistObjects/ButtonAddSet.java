@@ -1,4 +1,4 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister.SetlistObjects;
 
 import android.os.Parcel;
 import android.os.Parcelable;

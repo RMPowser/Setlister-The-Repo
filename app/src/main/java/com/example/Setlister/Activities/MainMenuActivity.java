@@ -1,4 +1,4 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.Setlister.R;
+import com.example.Setlister.SetlistObjects.Setlist;
 
 public class MainMenuActivity extends AppCompatActivity {
 	public static final String SETLIST_KEY = "setlist";

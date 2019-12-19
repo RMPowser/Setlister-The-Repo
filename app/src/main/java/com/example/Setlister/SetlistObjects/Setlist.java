@@ -1,9 +1,8 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister.SetlistObjects;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Setlist implements Parcelable {

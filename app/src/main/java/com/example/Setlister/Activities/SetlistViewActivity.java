@@ -1,4 +1,4 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.Setlister.Dialogs.HeaderEditDialog;
+import com.example.Setlister.HelperFunctions;
+import com.example.Setlister.R;
+import com.example.Setlister.Dialogs.RemoveDialog;
+import com.example.Setlister.SetlistObjects.Setlist;
+import com.example.Setlister.SetlistObjects.SetlistEntity;
+import com.example.Setlister.SetlistObjects.SongEntry;
+import com.example.Setlister.Dialogs.SongDataEditDialog;
+import com.example.Setlister.Dialogs.SongDataEntryDialog;
+import com.example.Setlister.ViewAdapters.SetlistViewAdapter;
 import com.google.android.material.navigation.NavigationView;
 
 public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener, SongDataEditDialog.SongDataEditDialogListener, RemoveDialog.RemoveDialogListener {

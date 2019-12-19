@@ -1,4 +1,4 @@
-package com.example.setlisterattempt2;
+package com.example.Setlister;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("com.example.setlisterattempt2", appContext.getPackageName());
+        assertEquals("com.example.Setlister", appContext.getPackageName());
     }
 }
