@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Setlister.Dialogs.HeaderEditDialog;
+import com.example.Setlister.Dialogs.ManageSetlistsConfirmDialog;
 import com.example.Setlister.Dialogs.NewSetlistConfirmDialog;
 import com.example.Setlister.HelperFunctions;
 import com.example.Setlister.R;
@@ -27,7 +28,7 @@ import com.example.Setlister.Dialogs.SongDataEntryDialog;
 import com.example.Setlister.ViewAdapters.SetlistViewAdapter;
 import com.google.android.material.navigation.NavigationView;
 
-public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener, SongDataEditDialog.SongDataEditDialogListener, RemoveDialog.RemoveDialogListener, NewSetlistConfirmDialog.NewSetlistConfirmDialogListener {
+public class SetlistViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SongDataEntryDialog.SongDataEntryDialogListener, HeaderEditDialog.HeaderEditDialogListener, SongDataEditDialog.SongDataEditDialogListener, RemoveDialog.RemoveDialogListener, NewSetlistConfirmDialog.NewSetlistConfirmDialogListener, ManageSetlistsConfirmDialog.ManageSetlistsConfirmDialogListener {
 	private static final String TAG = "SetlistViewActivity";
 	
 	private DrawerLayout navDrawer;
@@ -54,14 +55,14 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 				OpenNewSetlistConfirmDialog(adapter.getSetlist(), this);
 				break;
 			case R.id.nav_load_setlist:
-				startActivity(new Intent(SetlistViewActivity.this, ManagementViewActivity.class));
+				OpenManageSetlistConfirmDialog(adapter.getSetlist(), this);
 				break;
 			case R.id.nav_save_this_setlist:
 				HelperFunctions.SaveSetlist(adapter.getSetlist(), this);
 				break;
 			case R.id.nav_manage_setlists:
 				// this is an intentional duplicate of case R.id.nav_load_setlist
-				startActivity(new Intent(SetlistViewActivity.this, ManagementViewActivity.class));
+				OpenManageSetlistConfirmDialog(adapter.getSetlist(), this);
 				break;
 		}
 		navDrawer.closeDrawer(GravityCompat.START);
@@ -160,5 +161,15 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		Setlist newSetlist = new Setlist("New Setlist", "Date", "Time");
 		adapter.setSetlist(newSetlist);
 		adapter.Refresh();
+	}
+	
+	// override and function for ManageSetlistsConfirmDialog
+	public void OpenManageSetlistConfirmDialog(Setlist setlistToSave, Context context){
+		ManageSetlistsConfirmDialog dialog = new ManageSetlistsConfirmDialog(setlistToSave, context);
+		dialog.show(getSupportFragmentManager(), "ManageSetlistConfirmDialog");
+	}
+	@Override
+	public void GoToManagementActivity() {
+		startActivity(new Intent(SetlistViewActivity.this, ManagementViewActivity.class));
 	}
 }
