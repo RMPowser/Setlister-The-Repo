@@ -40,15 +40,15 @@ public class ManagementViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 		
 		View view;
 		view = LayoutInflater.from(context).inflate(R.layout.layout_setlist_header, parent, false);
-		return new HeaderViewHolder(view);
+		return new ViewHolders.HeaderViewHolder(view);
 	}
 	
 	@Override
 	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 		final int index = position;
 		
-		((HeaderViewHolder) holder).SetHeaderDetails(headerList.get(index));
-		((HeaderViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+		((ViewHolders.HeaderViewHolder) holder).SetHeaderDetails(headerList.get(index));
+		((ViewHolders.HeaderViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				String fileName = headerList.get(index).getSetlistFileName();
@@ -61,7 +61,7 @@ public class ManagementViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 				context.startActivity(intent);
 			}
 		});
-		((HeaderViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
+		((ViewHolders.HeaderViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
 			
 			@Override
 			public boolean onLongClick(View v) {

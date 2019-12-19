@@ -43,20 +43,20 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		View view;
 		if (viewType == TYPE_SET) {
 			view = LayoutInflater.from(context).inflate(R.layout.layout_set, parent, false);
-			return new SetViewHolder(view);
+			return new ViewHolders.SetViewHolder(view);
 		} else if (viewType == TYPE_SONG) {
 			view = LayoutInflater.from(context).inflate(R.layout.layout_song_entry, parent, false);
-			return new SongEntryViewHolder(view);
+			return new ViewHolders.SongEntryViewHolder(view);
 		} else if (viewType == TYPE_HEADER) {
 			view = LayoutInflater.from(context).inflate(R.layout.layout_setlist_header, parent, false);
-			return new HeaderViewHolder(view);
+			return new ViewHolders.HeaderViewHolder(view);
 		} else if (viewType == TYPE_ADD_SET_BUTTON) {
 			view = LayoutInflater.from(context).inflate(R.layout.layout_add_set_button, parent, false);
-			return new AddSetButtonViewHolder(view);
+			return new ViewHolders.AddSetButtonViewHolder(view);
 		} else if (viewType == TYPE_ADD_SONG_ENTRY_BUTTON) {
 			view = LayoutInflater.from(context).inflate(R.layout.layout_add_song_entry_button,
 					parent, false);
-			return new AddSongEntryButtonViewHolder(view);
+			return new ViewHolders.AddSongEntryButtonViewHolder(view);
 		}
 		return null;
 	}
@@ -66,8 +66,8 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 		final int index = position;
 		
 		if (getItemViewType(index) == TYPE_SET) {
-			((SetViewHolder) holder).setSetDetails((Set) setlist.getSongs().get(index));
-			((SetViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
+			((ViewHolders.SetViewHolder) holder).setSetDetails((Set) setlist.getSongs().get(index));
+			((ViewHolders.SetViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
 					SetlistEntity thingToRemove = setlist.getSongs().get(index);
@@ -77,8 +77,8 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 				}
 			});
 		} else if (getItemViewType(index) == TYPE_SONG) {
-			((SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) setlist.getSongs().get(index));
-			((SongEntryViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+			((ViewHolders.SongEntryViewHolder) holder).SetSongEntryDetails((SongEntry) setlist.getSongs().get(index));
+			((ViewHolders.SongEntryViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					String title = ((SongEntry) setlist.getSongs().get(index)).getTitle();
@@ -88,7 +88,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 					((SetlistViewActivity) context).OpenSongDataEditDialog(index, title, artist, length, key);
 				}
 			});
-			((SongEntryViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
+			((ViewHolders.SongEntryViewHolder) holder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
 					SetlistEntity thingToRemove = setlist.getSongs().get(index);
@@ -98,8 +98,8 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 				}
 			});
 		} else if (getItemViewType(index) == TYPE_HEADER) {
-			((HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) setlist.getSongs().get(index));
-			((HeaderViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+			((ViewHolders.HeaderViewHolder) holder).SetHeaderDetails((SetlistHeader) setlist.getSongs().get(index));
+			((ViewHolders.HeaderViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					String title = ((SetlistHeader) setlist.getSongs().get(0)).getTitleOrLocation();
@@ -109,7 +109,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 				}
 			});
 		} else if (getItemViewType(index) == TYPE_ADD_SET_BUTTON) {
-			((AddSetButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+			((ViewHolders.AddSetButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					setlist.InsertSet(index);
@@ -117,7 +117,7 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 				}
 			});
 		} else if (getItemViewType(index) == TYPE_ADD_SONG_ENTRY_BUTTON) {
-			((AddSongEntryButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+			((ViewHolders.AddSongEntryButtonViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					((SetlistViewActivity) context).OpenSongDataEntryDialog(index);
@@ -147,57 +147,5 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	}
 	
 	
-	private class SetViewHolder extends RecyclerView.ViewHolder {
-		TextView setNumber;
-		
-		public SetViewHolder(@NonNull View itemView) {
-			super(itemView);
-			setNumber = itemView.findViewById(R.id.set_number_text);
-		}
-		
-		private void setSetDetails(Set set) {
-			String text = "Set " + (set.getSetIndex());
-			setNumber.setText(text);
-		}
-	}
-	
-	private class SongEntryViewHolder extends RecyclerView.ViewHolder {
-		TextView title;
-		TextView artist;
-		TextView length;
-		TextView keySignature;
-		
-		public SongEntryViewHolder(@NonNull View itemView) {
-			super(itemView);
-			title = itemView.findViewById(R.id.song_title_text);
-			artist = itemView.findViewById(R.id.artist_text);
-			length = itemView.findViewById(R.id.length_text);
-			keySignature = itemView.findViewById(R.id.key_text);
-		}
-		
-		private void SetSongEntryDetails(@NonNull SongEntry songEntry) {
-			title.setText(songEntry.getTitle());
-			artist.setText(songEntry.getArtist());
-			length.setText(songEntry.getLength());
-			keySignature.setText(songEntry.getKeySignature());
-		}
-	}
-	
-	private class AddSetButtonViewHolder extends RecyclerView.ViewHolder {
-		TextView addSetButton;
-		
-		public AddSetButtonViewHolder(@NonNull View itemView) {
-			super(itemView);
-			addSetButton = itemView.findViewById(R.id.add_set_button_view);
-		}
-	}
-	
-	private class AddSongEntryButtonViewHolder extends RecyclerView.ViewHolder {
-		TextView addSongEntryButton;
-		
-		public AddSongEntryButtonViewHolder(@NonNull View itemView) {
-			super(itemView);
-			addSongEntryButton = itemView.findViewById(R.id.add_song_entry_button_view);
-		}
-	}
+
 }
