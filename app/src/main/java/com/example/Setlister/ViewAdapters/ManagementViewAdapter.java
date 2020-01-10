@@ -80,6 +80,14 @@ public class ManagementViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 	}
 	
 	@Override
+	public long getItemId(int position) {
+		if (position < headerList.size()){
+			return headerList.get(position).getIdentifier();
+		}
+		return RecyclerView.NO_ID; //return -1 by default
+	}
+	
+	@Override
 	public int getItemCount() {
 		return getHeaderList().size();
 	}

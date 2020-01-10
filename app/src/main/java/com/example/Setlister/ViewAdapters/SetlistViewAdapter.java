@@ -141,6 +141,14 @@ public class SetlistViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 	}
 	
 	@Override
+	public long getItemId(int position) {
+		if (position < setlist.getSongs().size()){
+			return setlist.getSongs().get(position).getIdentifier();
+		}
+		return RecyclerView.NO_ID; //return -1 by default
+	}
+	
+	@Override
 	public int getItemViewType(int position) {
 		if (setlist.getSongs().get(position) instanceof Set) {
 			return TYPE_SET;

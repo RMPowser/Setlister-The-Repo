@@ -41,6 +41,7 @@ public class ManagementViewActivity extends AppCompatActivity implements DeleteF
 		final ArrayList<SetlistHeader> headerList = GetHeaderListFromSaveDirectory();
 		RecyclerView recyclerView = findViewById(R.id.management_recycler_view);
 		adapter = new ManagementViewAdapter(this, headerList);
+		adapter.setHasStableIds(true); //this enables animations
 		recyclerView.setAdapter(adapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 	}

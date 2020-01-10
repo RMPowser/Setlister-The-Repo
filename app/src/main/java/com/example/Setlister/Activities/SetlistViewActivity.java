@@ -48,6 +48,28 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		initRecyclerView();
 	}
 	
+	private void initTestSetlist() {
+		Log.i(TAG, "initTestSetlist: called.");
+		adapter.getSetlist().AddHeader("Test Setlist", "Test Date", "Test Time");
+		adapter.getSetlist().AddSet();
+		for (int i = 0; i < 8; i++) {
+			adapter.getSetlist().AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
+		}
+		adapter.getSetlist().AddSet();
+		for (int i = 0; i < 8; i++) {
+			adapter.getSetlist().AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
+		}
+	}
+	
+	private void initRecyclerView() {
+		final Setlist mSetlist = getIntent().getExtras().getParcelable(MainMenuActivity.SETLIST_KEY);
+		RecyclerView recyclerView = findViewById(R.id.setlist_recycler_view);
+		adapter = new SetlistViewAdapter(this, mSetlist);
+		adapter.setHasStableIds(true); //this enables animations
+		recyclerView.setAdapter(adapter);
+		recyclerView.setLayoutManager(new LinearLayoutManager(this));
+	}
+	
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 		switch (menuItem.getItemId()) {
@@ -67,27 +89,6 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		}
 		navDrawer.closeDrawer(GravityCompat.START);
 		return true;
-	}
-	
-	private void initTestSetlist() {
-		Log.i(TAG, "initTestSetlist: called.");
-		adapter.getSetlist().AddHeader("Test Setlist", "Test Date", "Test Time");
-		adapter.getSetlist().AddSet();
-		for (int i = 0; i < 8; i++) {
-			adapter.getSetlist().AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
-		}
-		adapter.getSetlist().AddSet();
-		for (int i = 0; i < 8; i++) {
-			adapter.getSetlist().AddSong("title " + i, "artist " + i, "length " + i, "key " + i);
-		}
-	}
-	
-	private void initRecyclerView() {
-		final Setlist mSetlist = getIntent().getExtras().getParcelable(MainMenuActivity.SETLIST_KEY);
-		RecyclerView recyclerView = findViewById(R.id.setlist_recycler_view);
-		adapter = new SetlistViewAdapter(this, mSetlist);
-		recyclerView.setAdapter(adapter);
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
 	}
 	
 	// handles back button when navigation drawer is open
