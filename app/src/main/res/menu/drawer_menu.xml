@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group>
+    <group android:id="@+id/menu_top">
         <item
             android:id="@+id/nav_new_setlist"
             android:title="@string/textButtonNewSetlist" />
@@ -15,5 +15,4 @@
             android:id="@+id/nav_manage_setlists"
             android:title="@string/textButtonManageSetlist" />
     </group>
-
 </menu>

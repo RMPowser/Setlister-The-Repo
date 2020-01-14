@@ -5,7 +5,8 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainMenuActivity">
+    tools:context=".Activities.MainMenuActivity"
+    android:theme="@style/SetlisterTheme">
 
     <TextView
         android:id="@+id/textTitle"
@@ -38,10 +39,20 @@
         android:id="@+id/buttonManageSetlists"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/DarkModeToggle"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="180dp"
         android:text="@string/textButtonManageSetlist"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoadSetlist" />
+
+    <Switch
+        android:id="@+id/DarkModeToggle"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="135dp"
+        android:text="@string/textDarkModeToggle"
+        app:layout_constraintTop_toBottomOf="@+id/buttonManageSetlists" />
 
 </RelativeLayout>

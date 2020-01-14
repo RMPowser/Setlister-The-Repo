@@ -5,10 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -91,12 +92,13 @@ public class SetlistViewActivity extends AppCompatActivity implements Navigation
 		return true;
 	}
 	
-	// handles back button when navigation drawer is open
+	// handles back button when navigation drawer is open and saving setlist before going back
 	@Override
 	public void onBackPressed() {
 		if (navDrawer.isDrawerOpen(GravityCompat.START)) {
 			navDrawer.closeDrawer(GravityCompat.START);
 		} else {
+			HelperFunctions.SaveSetlist(adapter.getSetlist(), this);
 			super.onBackPressed();
 		}
 	}
