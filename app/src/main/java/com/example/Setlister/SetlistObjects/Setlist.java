@@ -20,7 +20,7 @@ public class Setlist implements Parcelable {
 	public Setlist(String title, String date, String time) {
 		// all setlists start with a default header
 		AddHeader(title, date, time);
-		RedistributeButtons();
+		FixButtons(0);
 	}
 	
 	public ArrayList<SetlistEntity> getSongs() {
@@ -30,13 +30,13 @@ public class Setlist implements Parcelable {
 	public void AddSong(String title, String artist, String length, String keySignature) {
 		SongEntry song = new SongEntry(title, artist, length, keySignature);
 		songs.add(song);
-		RedistributeButtons();
+		FixButtons(0);
 	}
 	
 	public void InsertSong(int index, String title, String artist, String length, String keySignature) {
 		SongEntry song = new SongEntry(title, artist, length, keySignature);
 		songs.add(index, song);
-		RedistributeButtons();
+		FixButtons(index);
 	}
 	
 	public void AddSet() {
@@ -44,15 +44,16 @@ public class Setlist implements Parcelable {
 		CountOfSets++;
 		set.setSetIndex(CountOfSets);
 		songs.add(set);
-		RedistributeButtons();
+		FixButtons(0);
 	}
 	
 	public void InsertSet(int index) {
 		// add the new set in. index will be wrong
-		Set set = new Set();
-		CountOfSets++;
-		set.setSetIndex(CountOfSets);
-		songs.add(index, set);
+		songs.add(index+1, new Set());
+		
+		// add the set's buttons
+		songs.add(index+2, new ButtonAddSongEntry());
+		songs.add(index+3, new ButtonAddSet());
 		
 		int newIndexForSets = 1; // new index starts at 1
 		
@@ -64,7 +65,7 @@ public class Setlist implements Parcelable {
 			}
 		}
 		
-		RedistributeButtons();
+		FixButtons(index);
 	}
 	
 	public void AddHeader(String titleOrLocation, String date, String time) {
@@ -91,7 +92,7 @@ public class Setlist implements Parcelable {
 			// subtract 1 from the count of all sets
 			CountOfSets--;
 			
-			while (songs.get(index) instanceof SongEntry) {
+			while (index < songs.size() && !(songs.get(index) instanceof Set)) {
 				// then remove everything after it up until the next set
 				songs.remove(index);
 			}
@@ -109,64 +110,72 @@ public class Setlist implements Parcelable {
 		} else if (songs.get(index) instanceof SongEntry || songs.get(index) instanceof SetlistHeader) {
 			songs.remove(index);
 		}
-		RedistributeButtons();
+		FixButtons(index);
 	}
 	
 	public void Clear() {
 		CountOfSets = 0;
 		songs.clear();
 		AddHeader("New Setlist", "Jan 1st", "8PM");
-		RedistributeButtons();
+		FixButtons(0);
 	}
 	
-	private void RedistributeButtons() { // makes sure these two functions are always called in
-		// this order
-		MakeSureThereIsOneAddSetButtonPerSet();
-		MakeSureThereIsOneAddSongEntryButtonPerSet();
+	private void FixButtons(int startingIndex) { // makes sure these two functions are always
+		// called in this order
+		MakeSureThereIsOneAddSetButtonPerSet(startingIndex);
+		MakeSureThereIsOneAddSongEntryButtonPerSet(startingIndex);
 	}
 	
-	private void MakeSureThereIsOneAddSetButtonPerSet() { // not to be used outside
-		// of RedistributeButtons()
-		// first get rid of all the AddSet buttons
-		for (int i = 0; i < songs.size(); i++) {
-			if (songs.get(i) instanceof ButtonAddSet) {
-				songs.remove(i);
-				i--;
-			}
-		}
+	private void MakeSureThereIsOneAddSetButtonPerSet(int startingIndex) {
+		// !!do not use outside of FixButtons!!
 		
-		// then, add them back in at the right spots
-		for (int i = 0; i < songs.size(); i++) {
-			if (songs.get(i) instanceof Set) {
-				ButtonAddSet button = new ButtonAddSet();
-				songs.add(i, button);
-				i++;
+		// check for and add buttons in correct spots
+		for (int i = startingIndex; i < songs.size(); i++) {
+			if (i > 0 && songs.get(i) instanceof Set) {
+				if (!(songs.get(i-1) instanceof ButtonAddSet)) {
+					songs.add(i, new ButtonAddSet());
+					i++;
+				}
+				else {
+					if (i-3 >= 0 && songs.get(i-3) instanceof ButtonAddSet) {
+						songs.remove(i-1);
+					}
+				}
 			}
 		}
-		// finally, put one at the very end
-		ButtonAddSet button = new ButtonAddSet();
-		songs.add(button);
+		// check for duplicate and ButtonAddSongEntry directly above self
+		for (int i = startingIndex; i < songs.size(); i++) {
+			if (i > 0 && songs.get(i) instanceof ButtonAddSet && songs.get(i-1) instanceof ButtonAddSet){
+				songs.remove(i);
+			}
+		}
+		// check for button at the end
+		if (!(songs.get(songs.size() - 1) instanceof ButtonAddSet)){
+			songs.add(new ButtonAddSet());
+		}
 	}
 	
-	private void MakeSureThereIsOneAddSongEntryButtonPerSet() { // not to be used outside
-		// of RedistributeButtons()
-		// first get rid of all the AddSongEntry buttons
-		for (int i = 0; i < songs.size(); i++) {
-			if (songs.get(i) instanceof ButtonAddSongEntry) {
-				songs.remove(i);
-				i--;
-			}
-		}
+	private void MakeSureThereIsOneAddSongEntryButtonPerSet(int startingIndex) {
+		// !!do not use outside of FixButtons!!
 		
-		// then, add them back in at the right spots
-		for (int i = 0; i < songs.size(); i++) {
+		// check for and add buttons in correct spots
+		for (int i = startingIndex; i < songs.size(); i++) {
 			if ((songs.get(i) instanceof Set || songs.get(i) instanceof ButtonAddSet) && i != 0) {
 				if (!(songs.get(i - 1) instanceof ButtonAddSongEntry) && !(songs.get(i - 1) instanceof ButtonAddSet) && !(songs.get(i - 1) instanceof SetlistHeader)) {
-					ButtonAddSongEntry button = new ButtonAddSongEntry();
-					songs.add(i, button);
+					songs.add(i, new ButtonAddSongEntry());
 					i++;
 				}
 			}
+		}
+		// check for duplicate and ButtonAddSet directly above self
+		for (int i = startingIndex; i < songs.size(); i++) {
+			if (i > 0 && songs.get(i) instanceof ButtonAddSongEntry && (songs.get(i-1) instanceof ButtonAddSongEntry || songs.get(i-1) instanceof ButtonAddSet)){
+				songs.remove(i);
+			}
+		}
+		// check for button directly after header
+		if (songs.get(1) instanceof ButtonAddSongEntry){
+			songs.remove(1);
 		}
 	}
 	
