@@ -24,6 +24,7 @@ public class MainMenuActivity extends AppCompatActivity {
 	private Button newSetlistButton;
 	private Button loadSetlistButton;
 	private Button manageSetlistsButton;
+	private Button helpButton;
 	private Switch darkModeToggle;
 	
 	public static final String prefFileName = "SetlisterPreferences";
@@ -65,6 +66,14 @@ public class MainMenuActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(MainMenuActivity.this, ManagementViewActivity.class));
+			}
+		});
+		
+		helpButton = findViewById(R.id.buttonHelp);
+		helpButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(MainMenuActivity.this, HelpActivity.class));
 			}
 		});
 		

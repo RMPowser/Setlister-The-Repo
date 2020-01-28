@@ -39,9 +39,18 @@
         android:id="@+id/buttonManageSetlists"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/DarkModeToggle"
+        android:layout_above="@+id/buttonHelp"
         android:layout_centerHorizontal="true"
         android:text="@string/textButtonManageSetlist"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoadSetlist" />
+
+    <Button
+        android:id="@+id/buttonHelp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/DarkModeToggle"
+        android:layout_centerHorizontal="true"
+        android:text="@string/textButtonHelp"
         app:layout_constraintTop_toBottomOf="@+id/buttonLoadSetlist" />
 
     <Switch
@@ -51,7 +60,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="135dp"
+        android:layout_marginBottom="110dp"
         android:text="@string/textDarkModeToggle"
         app:layout_constraintTop_toBottomOf="@+id/buttonManageSetlists" />
 

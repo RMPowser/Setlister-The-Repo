@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.HelpActivity">
+
+    <TextView
+        android:id="@+id/HelpTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Help"
+        android:textSize="40sp"/>
+
+    <TextView
+        android:id="@+id/q1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/HelpTitle"
+        android:layout_marginTop="15dp"
+        android:text="How do I add a song?"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="20dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q1a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q1"
+        android:text="Songs must always be within a set, so create a set first by tapping on '+ set' and then add a song by tapping on '+ song' within that set."
+        android:textSize="15sp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/q1a"
+        android:layout_marginTop="15dp"
+        android:text="How do I add a set?"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginHorizontal="20dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q2a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q2"
+        android:text="Just tap on a '+ set' button to insert a new set at that location."
+        android:textSize="15sp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q2a"
+        android:layout_marginTop="15dp"
+        android:text="How do I change the name/date/time of the setlist?"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q3a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q3"
+        android:text="Just tap on the header. You can change anything you want."
+        android:textSize="15sp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q3a"
+        android:layout_marginTop="15dp"
+        android:text="How do I save a setlist or create a new one?"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q4a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q4"
+        android:text="While viewing a setlist, swipe in from the left side of your screen."
+        android:textSize="15sp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q4a"
+        android:layout_marginTop="15dp"
+        android:text="How do I remove things from a setlist?"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q5a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q5"
+        android:text="Simply tap and hold on whatever you want to remove and then answer 'yes' to the confirmation. The header of a setlist is the only thing that can not be removed."
+        android:textSize="15sp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q5a"
+        android:layout_marginTop="15dp"
+        android:text="How do I delete a setlist?"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/q6a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@id/q6"
+        android:text="From the main menu or the slideout menu, choose either 'Load Setlist' or 'Manage Setlists'. Then tap and hold on the setlist you want to delete and answer 'yes' to the confirmation."
+        android:textSize="15sp"
+        android:textAlignment="center"/>
+</RelativeLayout>

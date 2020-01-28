@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/SetlisterTheme">
+        <activity android:name=".Activities.HelpActivity"></activity>
         <activity
-            android:name="com.example.Setlister.Activities.ManagementViewActivity"
-            android:label="@string/title_activity_management_view"></activity>
+            android:name=".Activities.ManagementViewActivity"
+            android:label="@string/title_activity_management_view" />
         <activity
-            android:name="com.example.Setlister.Activities.MainMenuActivity"
+            android:name=".Activities.MainMenuActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -22,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.Setlister.Activities.SetlistViewActivity" />
+        <activity android:name=".Activities.SetlistViewActivity" />
     </application>
 
 </manifest>
