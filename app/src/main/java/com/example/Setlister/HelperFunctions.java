@@ -62,11 +62,35 @@ public abstract class HelperFunctions {
 	}
 	
 	public static boolean SaveSetlist(Setlist setlist, Context context) {
+		String name = ((SetlistHeader) setlist.getSongs().get(0)).getTitleOrLocation();
+		String date = ((SetlistHeader) setlist.getSongs().get(0)).getDate();
+		String time = ((SetlistHeader) setlist.getSongs().get(0)).getTime();
+		
+		// sanitize the strings
+		for (int i = 0; i < name.length(); i++) {
+			char c = name.charAt(i);
+			if (c == '/' || c == '\\' || c == '|' || c == ':' || c == '*' || c == '?' || c == '\"' || c == '<' || c == '>') {
+				name = name.replace(c,'-');
+			}
+		}
+		
+		for (int i = 0; i < date.length(); i++) {
+			char c = date.charAt(i);
+			if (c == '/' || c == '\\' || c == '|' || c == ':' || c == '*' || c == '?' || c == '\"' || c == '<' || c == '>') {
+				date = date.replace(c,'-');
+			}
+		}
+		
+		for (int i = 0; i < time.length(); i++) {
+			char c = time.charAt(i);
+			if (c == '/' || c == '\\' || c == '|' || c == ':' || c == '*' || c == '?' || c == '\"' || c == '<' || c == '>') {
+				time = time.replace(c,'-');
+			}
+		}
+		
 		// file name is title of setlist
 		String FILE_NAME =
-				context.getFilesDir().getPath() + "/" + ((SetlistHeader) setlist.getSongs().get(0)).getTitleOrLocation() +
-						"_" + ((SetlistHeader) setlist.getSongs().get(0)).getDate() +
-						"_" + ((SetlistHeader) setlist.getSongs().get(0)).getTime() + ".setlist";
+				context.getFilesDir().getPath() + "/" + name + "_" + date + "_" + time + ".setlist";
 		
 		RuntimeTypeAdapterFactory runtimeTypeAdapterFactory =
 				HelperFunctions.CreateRuntimeTypeAdapterFactory();
